@@ -1,5 +1,6 @@
 package fi.yussiv.minigolf.gui;
 
+import fi.yussiv.minigolf.logic.Geometry;
 import java.awt.Point;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
@@ -29,27 +30,15 @@ public class MinigolfMouseListener implements MouseListener, MouseMotionListener
     @Override
     public void mousePressed(MouseEvent me) {
         start = me.getPoint();
-        System.out.println("mouse pressed!");
     }
 
     @Override
     public void mouseReleased(MouseEvent me) {
         end = me.getPoint();
-        double angle;
-        int vertical = start.y - end.y;
-        int horizontal = start.x - end.x;
-        if(horizontal == 0)
-            angle = 0;
-        else
-            angle = Math.tan(Math.abs(vertical)/horizontal);
-        
-        if(vertical > 0)
-            angle += 180;
-        
+        double angle = Geometry.calculateAngle(start, end);
         double distance = start.distance(end);
-        System.out.println("dis:"+distance+" ang:"+angle);
-        gui.getGame().excecutePutt(distance, angle);//executeCommand(distance, angle);
-        System.out.println("mouse listened!");
+        gui.getGame().excecutePutt(distance, angle);
+        System.out.println("Putt: start:(" + start.x + "," + start.y + ") end:(" + end.x + "," + end.y + ") angle:" + angle + " distance:" + distance);
     }
 
     @Override
@@ -65,7 +54,6 @@ public class MinigolfMouseListener implements MouseListener, MouseMotionListener
     @Override
     public void mouseDragged(MouseEvent me) {
         canvas.setMouseCoords("drag: (" + me.getX() + "," + me.getY() + ")");
-//        canvas.refresh();
     }
 
     @Override

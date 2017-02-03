@@ -36,10 +36,12 @@
                 <configuration>
                     <targetClasses>
                         <param>fi.yussiv.minigolf.domain.*</param>
+                        <param>fi.yussiv.minigolf.logic.*</param>
                         <param>fi.yussiv.minigolf.Game</param>
                     </targetClasses>
                     <targetTests>
                         <param>fi.yussiv.minigolf.domain.*</param>
+                        <param>fi.yussiv.minigolf.logic.*</param>
                         <param>fi.yussiv.minigolf.GameTest</param>
                     </targetTests>
                 </configuration>

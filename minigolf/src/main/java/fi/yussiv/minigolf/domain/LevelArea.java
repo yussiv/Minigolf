@@ -1,13 +1,14 @@
 package fi.yussiv.minigolf.domain;
 
+import java.awt.Point;
 import java.util.ArrayList;
 import java.util.List;
 
 public class LevelArea {
 
     private List<Obstacle> obstacles;
-    private Position start;
-    private Position target;
+    private Point start;
+    private Point target;
     private int width;
     private int height;
 
@@ -25,19 +26,19 @@ public class LevelArea {
         return obstacles;
     }
 
-    public void setStart(Position start) {
+    public void setStart(Point start) {
         this.start = start;
     }
 
-    public void setTarget(Position target) {
+    public void setTarget(Point target) {
         this.target = target;
     }
 
-    public Position getStart() {
+    public Point getStart() {
         return start;
     }
 
-    public Position getTarget() {
+    public Point getTarget() {
         return target;
     }
 

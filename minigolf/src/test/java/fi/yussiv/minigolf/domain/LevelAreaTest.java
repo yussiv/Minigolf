@@ -1,5 +1,6 @@
 package fi.yussiv.minigolf.domain;
 
+import java.awt.Point;
 import java.util.List;
 import org.junit.Before;
 import org.junit.Test;
@@ -37,9 +38,9 @@ public class LevelAreaTest {
 
     @Test
     public void canSetTarget() {
-        area.setTarget(new Position(66, 99));
-        assertEquals(66, area.getTarget().getX());
-        assertEquals(99, area.getTarget().getY());
+        area.setTarget(new Point(66, 99));
+        assertEquals(66, area.getTarget().getX(), 0.1);
+        assertEquals(99, area.getTarget().getY(), 0.1);
     }
 
 }

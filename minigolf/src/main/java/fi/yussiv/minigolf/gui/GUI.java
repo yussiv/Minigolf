@@ -1,8 +1,8 @@
-
 package fi.yussiv.minigolf.gui;
 
 import fi.yussiv.minigolf.Game;
 import fi.yussiv.minigolf.domain.Ball;
+import fi.yussiv.minigolf.domain.LevelArea;
 import java.awt.Container;
 import java.awt.Dimension;
 import javax.swing.JFrame;
@@ -13,6 +13,7 @@ import javax.swing.WindowConstants;
  * @author jkvoipio
  */
 public class GUI implements Runnable {
+
     private JFrame frame;
     private Canvas canvas;
     private Ball ball;
@@ -22,7 +23,7 @@ public class GUI implements Runnable {
         this.game = game;
         this.ball = game.getPlayer().getBall();
     }
-    
+
     public void executeCommand(double force, double angle) {
         game.excecutePutt(force, angle);
         System.out.println("got command!");
@@ -32,7 +33,7 @@ public class GUI implements Runnable {
     public void run() {
         frame = new JFrame("Big League Minigolf");
 
-        frame.setPreferredSize(new Dimension(600, 850));
+        frame.setPreferredSize(new Dimension(620, 850));
 
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
@@ -43,15 +44,14 @@ public class GUI implements Runnable {
     }
 
     public void createComponents(Container container) {
-        // Huom! Luo ensin piirtoalusta jonka lisäät container-olioon
-        // Luo vasta tämän jälkeen näppäimistönkuuntelija, jonka lisäät frame-oliolle
-        canvas = new Canvas(600,800,ball);
-        
+        LevelArea area = game.getLevelArea();
+        canvas = new Canvas(area.getWidth(), area.getHeight(), ball, area.getTarget());
+
         container.add(canvas);
         container.addMouseMotionListener(new MinigolfMouseListener(this));
         container.addMouseListener(new MinigolfMouseListener(this));
     }
-    
+
     public Canvas getCanvas() {
         return canvas;
     }
@@ -59,11 +59,11 @@ public class GUI implements Runnable {
     public Game getGame() {
         return game;
     }
-    
+
     public JFrame getFrame() {
         return frame;
     }
-    
+
     public void refresh() {
         canvas.refresh();
     }

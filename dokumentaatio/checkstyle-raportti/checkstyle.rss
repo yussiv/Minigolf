@@ -25,7 +25,7 @@ under the License.
     <language>en-us</language>
     <copyright>&#169;2017</copyright>
     <item>
-      <title>File: 7,
+      <title>File: 11,
              Errors: 0,
              Warnings: 0,
              Infos: 0
@@ -47,20 +47,6 @@ under the License.
                           <tr>
                 <td>
                   <a href="${project.url}/checkstyle.html#fi.yussiv.minigolf.domain.Position.java">fi/yussiv/minigolf/domain/Position.java</a>
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  0
-                </td>
-              </tr>
-                          <tr>
-                <td>
-                  <a href="${project.url}/checkstyle.html#fi.yussiv.minigolf.Minigolf.java">fi/yussiv/minigolf/Minigolf.java</a>
                 </td>
                 <td>
                   0
@@ -102,7 +88,49 @@ under the License.
               </tr>
                           <tr>
                 <td>
-                  <a href="${project.url}/checkstyle.html#fi.yussiv.minigolf.domain.Player.java">fi/yussiv/minigolf/domain/Player.java</a>
+                  <a href="${project.url}/checkstyle.html#fi.yussiv.minigolf.gui.Canvas.java">fi/yussiv/minigolf/gui/Canvas.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="${project.url}/checkstyle.html#fi.yussiv.minigolf.Minigolf.java">fi/yussiv/minigolf/Minigolf.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="${project.url}/checkstyle.html#fi.yussiv.minigolf.gui.MinigolfMouseListener.java">fi/yussiv/minigolf/gui/MinigolfMouseListener.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="${project.url}/checkstyle.html#fi.yussiv.minigolf.logic.Geometry.java">fi/yussiv/minigolf/logic/Geometry.java</a>
                 </td>
                 <td>
                   0
@@ -117,6 +145,34 @@ under the License.
                           <tr>
                 <td>
                   <a href="${project.url}/checkstyle.html#fi.yussiv.minigolf.domain.LevelArea.java">fi/yussiv/minigolf/domain/LevelArea.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="${project.url}/checkstyle.html#fi.yussiv.minigolf.domain.Player.java">fi/yussiv/minigolf/domain/Player.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="${project.url}/checkstyle.html#fi.yussiv.minigolf.gui.GUI.java">fi/yussiv/minigolf/gui/GUI.java</a>
                 </td>
                 <td>
                   0

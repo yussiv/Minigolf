@@ -1,8 +1,11 @@
 
 package fi.yussiv.minigolf.domain;
 
+import java.awt.Point;
+
 /**
- *
+ * Coordinate class using floating point values
+ * 
  * @author jkvoipio
  */
 public class Position {
@@ -27,7 +30,7 @@ public class Position {
         return "(" + x + ", " + y + ")";
     }
 
-    public boolean overlaps(Position other, int margin) {
+    public boolean overlaps(Point other, int margin) {
         return Math.abs(x - other.x) < margin && Math.abs(y - other.y) < margin;
     }
 

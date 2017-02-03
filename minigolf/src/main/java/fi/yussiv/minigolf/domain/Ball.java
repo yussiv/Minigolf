@@ -1,6 +1,9 @@
 package fi.yussiv.minigolf.domain;
 
+import java.awt.Point;
+
 public class Ball {
+
     private double x;
     private double y;
     private double velocity;
@@ -15,6 +18,11 @@ public class Ball {
     }
 
     public void setPosition(Position position) {
+        this.x = position.getX();
+        this.y = position.getY();
+    }
+    
+    public void setPosition(Point position) {
         this.x = position.getX();
         this.y = position.getY();
     }
@@ -34,9 +42,9 @@ public class Ball {
     public Player getPlayer() {
         return player;
     }
-    
+
     public boolean isMoving() {
-        return Math.abs(velocity) >= 0.3;
+        return Math.abs(velocity) > 0.3;
     }
 
     public double getVelocity() {
@@ -57,6 +65,6 @@ public class Ball {
 
     @Override
     public String toString() {
-        return String.format("(%.3f, %.3f) velocity:%.3f, angle:%.1f", x,y,velocity,angle);
+        return String.format("(%.3f, %.3f) velocity:%.3f, angle:%.1f", x, y, velocity, angle);
     }
 }

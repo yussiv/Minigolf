@@ -5,8 +5,10 @@ import fi.yussiv.minigolf.domain.LevelArea;
 import fi.yussiv.minigolf.domain.Player;
 import fi.yussiv.minigolf.domain.Position;
 import fi.yussiv.minigolf.gui.GUI;
+import java.awt.Point;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Random;
 import javax.swing.SwingUtilities;
 import javax.swing.Timer;
 
@@ -16,19 +18,20 @@ public class Game extends Timer implements ActionListener {
     private Player player;
     private LevelArea area;
     private GUI gui;
-    private int timeout = 0;
 
     public Game() {
         super(15, null);
         this.area = new LevelArea(600, 800);
-        this.area.setStart(new Position(300, 50));
-        this.area.setTarget(new Position(500, 700));
+        
+        Random rand = new Random();
+        this.area.setStart(new Point(rand.nextInt(250) + 25, rand.nextInt(150) + 25));
+        this.area.setTarget(new Point(rand.nextInt(250) + 25, rand.nextInt(150) + 625));
 
         this.player = new Player();
         this.player.setBall(new Ball());
     }
 
-    LevelArea getLevelArea() {
+    public LevelArea getLevelArea() {
         return area;
     }
 
@@ -54,34 +57,27 @@ public class Game extends Timer implements ActionListener {
      */
     public void excecutePutt(double velocity, double angle) {
         Ball ball = player.getBall();
-        ball.setVelocity(velocity / 2);
+        ball.setVelocity(velocity / 10);
         ball.setAngle(angle);
     }
 
     public void maybeCollision(Ball ball) {
-        if (timeout > 0) {
-            timeout--;
-            return;
-        }
-        if (ball.getX() > 600 || ball.getX() < 0) {
-            ball.setAngle(-1 * ball.getAngle());
-            System.out.println("collision x, " + ball);
-            timeout = 10;
+
+        if (targetReached()) {
+            ball.setPosition(new Position(-999, -999));
         }
 
-        if (ball.getY() < 0 || ball.getY() > 800) {
+        if (ball.getX() > area.getWidth() - 5 || ball.getX() < 5) {
+            ball.setAngle(-1 * ball.getAngle());
+        }
+
+        if (ball.getY() < 5 || ball.getY() > area.getHeight() - 5) {
             ball.setAngle(180 - ball.getAngle());
-            System.out.println("collision y, " + ball);
-            timeout = 10;
         }
     }
 
     public boolean targetReached() {
-        return player.getBall().getPosition().overlaps(area.getTarget(), 5);
-    }
-
-    private double calculateAngle(double objectAngle, double ballAngle) {
-        return ballAngle - 180 + objectAngle;
+        return player.getBall().getPosition().overlaps(area.getTarget(), 8);
     }
 
     public Player getPlayer() {
@@ -104,5 +100,4 @@ public class Game extends Timer implements ActionListener {
         }
         gui.refresh();
     }
-    
 }

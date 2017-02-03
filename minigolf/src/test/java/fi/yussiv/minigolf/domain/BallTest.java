@@ -34,9 +34,9 @@ public class BallTest {
 
     @Test
     public void velocityCutoffWorks() {
-        ball.setVelocity(1.1);
+        ball.setVelocity(0.31);
         assertTrue(ball.isMoving());
-        ball.setVelocity(0.999);
+        ball.setVelocity(0.3);
         assertFalse(ball.isMoving());
     }
 

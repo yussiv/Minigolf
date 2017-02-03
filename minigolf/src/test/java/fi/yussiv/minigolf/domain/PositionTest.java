@@ -1,5 +1,6 @@
 package fi.yussiv.minigolf.domain;
 
+import java.awt.Point;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
@@ -15,13 +16,13 @@ public class PositionTest {
     @Test
     public void correctToString() {
         Position p = new Position(38, 10);
-        assertEquals("(38, 10)", p.toString());
+        assertEquals("(38.0, 10.0)", p.toString());
     }
 
     @Test
     public void overlappingPositionsDetected() {
         Position p = new Position(38, 10);
-        Position o = new Position(40, 6);
+        Point o = new Point(40, 6);
 
         assertTrue(p.overlaps(o, 5));
         assertFalse(p.overlaps(o, 2));
