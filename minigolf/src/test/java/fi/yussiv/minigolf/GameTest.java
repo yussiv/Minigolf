@@ -21,8 +21,8 @@ public class GameTest {
 
     @Before
     public void setUp() {
-        area = new LevelArea(0, 0);
-        game = new Game(area);
+        game = new Game();
+        area = game.getLevelArea();
     }
 
     @Test

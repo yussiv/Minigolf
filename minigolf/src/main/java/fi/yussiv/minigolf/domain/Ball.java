@@ -1,8 +1,8 @@
 package fi.yussiv.minigolf.domain;
 
 public class Ball {
-    private int x;
-    private int y;
+    private double x;
+    private double y;
     private double velocity;
     private double angle;
     private Player player;
@@ -23,11 +23,11 @@ public class Ball {
         return new Position(x, y);
     }
 
-    public int getX() {
+    public double getX() {
         return x;
     }
 
-    public int getY() {
+    public double getY() {
         return y;
     }
 
@@ -36,7 +36,7 @@ public class Ball {
     }
     
     public boolean isMoving() {
-        return Math.abs(velocity) >= 1;
+        return Math.abs(velocity) >= 0.3;
     }
 
     public double getVelocity() {
@@ -53,5 +53,10 @@ public class Ball {
 
     public void setAngle(double angle) {
         this.angle = angle;
+    }
+
+    @Override
+    public String toString() {
+        return String.format("(%.3f, %.3f) velocity:%.3f, angle:%.1f", x,y,velocity,angle);
     }
 }
