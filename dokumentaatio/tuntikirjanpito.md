@@ -5,4 +5,4 @@
 | 19.1.2017 | 4h     | Aiheen ideointi, repositorion pystyttäminen |
 | 26.1.2017 | 7h     | Luokkarakenteen suunnittelua, ensimmäiset luokat ja testit |
 | 2.2.2017  | 4h     | Graafisen käyttöliittymän teon opettelua |
-| 26.1.2017 | 5h     | Logiikan rakentelua ja GUIn korjailua |
+| 3.2.2017  | 5h     | Logiikan rakentelua ja GUIn korjailua |
