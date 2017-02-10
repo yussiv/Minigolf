@@ -3,8 +3,7 @@ package fi.yussiv.minigolf.logic;
 import java.awt.Point;
 
 /**
- *
- * @author jkvoipio
+ * Utility class containing angle calculations for collision handling.
  */
 public class Geometry {
 

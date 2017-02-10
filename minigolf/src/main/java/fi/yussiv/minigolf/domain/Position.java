@@ -1,14 +1,12 @@
-
 package fi.yussiv.minigolf.domain;
 
 import java.awt.Point;
 
 /**
- * Coordinate class using floating point values
- * 
- * @author jkvoipio
+ * Coordinate class using floating point values.
  */
 public class Position {
+
     private double x;
     private double y;
 
@@ -24,14 +22,20 @@ public class Position {
     public double getY() {
         return y;
     }
-    
+
     @Override
     public String toString() {
         return "(" + x + ", " + y + ")";
     }
 
-    public boolean overlaps(Point other, int margin) {
-        return Math.abs(x - other.x) < margin && Math.abs(y - other.y) < margin;
+    /**
+     * Method to determine if position overlaps a point within given margin.
+     * 
+     * @param point the possible overlapping point
+     * @param margin how far from the point can be to still be considered overlapping
+     */
+    public boolean overlaps(Point point, int margin) {
+        return Math.abs(x - point.x) < margin && Math.abs(y - point.y) < margin;
     }
 
     @Override
@@ -39,7 +43,7 @@ public class Position {
         if (!obj.getClass().equals(Position.class)) {
             return false;
         }
-        
+
         Position other = (Position) obj;
         return other.x == x && other.y == y;
     }

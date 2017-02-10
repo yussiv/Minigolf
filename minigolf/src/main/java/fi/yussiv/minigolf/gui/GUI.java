@@ -9,8 +9,7 @@ import javax.swing.JFrame;
 import javax.swing.WindowConstants;
 
 /**
- *
- * @author jkvoipio
+ * Main class for the graphical user interface.
  */
 public class GUI implements Runnable {
 

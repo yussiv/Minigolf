@@ -8,8 +8,7 @@ import java.awt.Point;
 import javax.swing.JPanel;
 
 /**
- *
- * @author jkvoipio
+ * The Graphical area representing the playing area.
  */
 public class Canvas extends JPanel {
 
@@ -57,6 +56,5 @@ public class Canvas extends JPanel {
 
     public void refresh() {
         super.repaint();
-//            System.out.println("called canvas");
     }
 }

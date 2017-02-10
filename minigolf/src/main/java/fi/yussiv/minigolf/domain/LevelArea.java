@@ -4,6 +4,10 @@ import java.awt.Point;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Class portraying the current level. Contains information of starting and
+ * ending locations and possible obstacles.
+ */
 public class LevelArea {
 
     private List<Obstacle> obstacles;

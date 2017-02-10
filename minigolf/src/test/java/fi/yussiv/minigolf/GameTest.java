@@ -16,6 +16,7 @@ public class GameTest {
 
     private Game game;
     private LevelArea area;
+    private Player player;
 
     public GameTest() {
     }
@@ -24,12 +25,12 @@ public class GameTest {
     public void setUp() {
         game = new Game();
         area = game.getLevelArea();
+        player = new Player("");
     }
 
     @Test
     public void ballStartLocationCorrect() {
         area.setStart(new Point(200, 10));
-        Player player = new Player();
 
         game.addPlayer(player);
         game.startGame();
@@ -41,7 +42,6 @@ public class GameTest {
     @Test
     public void reachingTargetDetected() {
         area.setTarget(new Point(90, 140));
-        Player player = new Player();
 
         game.addPlayer(player);
         player.getBall().setPosition(new Position(83, 147));

@@ -12,6 +12,9 @@ import java.util.Random;
 import javax.swing.SwingUtilities;
 import javax.swing.Timer;
 
+/**
+ * The game's main class.
+ */
 public class Game extends Timer implements ActionListener {
 
     private static final double RESISTANCE_COEFFICIENT = 0.99;
@@ -27,7 +30,7 @@ public class Game extends Timer implements ActionListener {
         this.area.setStart(new Point(rand.nextInt(250) + 25, rand.nextInt(150) + 25));
         this.area.setTarget(new Point(rand.nextInt(250) + 25, rand.nextInt(150) + 625));
 
-        this.player = new Player();
+        this.player = new Player("Player 1");
         this.player.setBall(new Ball());
     }
 
@@ -51,16 +54,23 @@ public class Game extends Timer implements ActionListener {
     }
 
     /**
-     *
-     * @param velocity
-     * @param angle -180 to 180, 0 == up
+     * Sets the balls movement parameters for the next hit, 
+     * effectively putting the ball in motion.
+     * 
+     * @param force 
+     * @param angle -180 to 180 degrees. 0 degrees means straight up.
      */
-    public void excecutePutt(double velocity, double angle) {
+    public void excecutePutt(double force, double angle) {
         Ball ball = player.getBall();
-        ball.setVelocity(velocity / 10);
+        ball.setVelocity(force / 10);
         ball.setAngle(angle);
     }
 
+    /**
+     * Checks whether the ball has hit something
+     * 
+     * @param ball 
+     */
     public void maybeCollision(Ball ball) {
 
         if (targetReached()) {

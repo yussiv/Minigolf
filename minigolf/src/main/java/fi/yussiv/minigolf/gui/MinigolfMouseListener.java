@@ -7,8 +7,7 @@ import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 
 /**
- *
- * @author jkvoipio
+ * Mouse listener for the games main input.
  */
 public class MinigolfMouseListener implements MouseListener, MouseMotionListener {
 

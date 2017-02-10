@@ -2,6 +2,9 @@ package fi.yussiv.minigolf.domain;
 
 import java.awt.Point;
 
+/**
+ * Class containing information of the players golf ball location and movement.
+ */
 public class Ball {
 
     private double x;
@@ -9,9 +12,6 @@ public class Ball {
     private double velocity;
     private double angle;
     private Player player;
-
-    public Ball() {
-    }
 
     public void setPlayer(Player player) {
         this.player = player;
@@ -43,6 +43,11 @@ public class Ball {
         return player;
     }
 
+    /**
+     * Method to determine if the ball is still moving
+     * 
+     * @return boolean
+     */
     public boolean isMoving() {
         return Math.abs(velocity) > 0.3;
     }
