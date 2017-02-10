@@ -6,3 +6,4 @@
 | 26.1.2017 | 7h     | Luokkarakenteen suunnittelua, ensimmäiset luokat ja testit |
 | 2.2.2017  | 4h     | Graafisen käyttöliittymän teon opettelua |
 | 3.2.2017  | 5h     | Logiikan rakentelua ja GUIn korjailua |
+| 10.2.2017 | 5h     | Seinien lisäys ja rikkinäisten laskutoimitusten kanssa tuskailua |

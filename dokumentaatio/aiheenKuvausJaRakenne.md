@@ -8,5 +8,10 @@
 
 ### Raportit
 
-* [pit-raportti](https://htmlpreview.github.io/?https://github.com/yussiv/Minigolf/blob/master/dokumentaatio/checkstyle-raportti/checkstyle.html)
-* [checkstyle-raportti](https://htmlpreview.github.io/?https://github.com/yussiv/Minigolf/blob/master/dokumentaatio/pit-raportti/index.html)
+* [PIT-raportti](https://htmlpreview.github.io/?https://github.com/yussiv/Minigolf/blob/master/dokumentaatio/pit-raportti/index.html)
+* [Checkstyle-raportti](https://htmlpreview.github.io/?https://github.com/yussiv/Minigolf/blob/master/dokumentaatio/checkstyle-raportti/checkstyle.html)
+
+### Havaitut viat
+
+* Törmäyksen tunnistus epämääräistä
+* Kimpoamiskulman laskut päin seiniä (tihihihii...)

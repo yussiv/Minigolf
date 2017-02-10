@@ -9,5 +9,5 @@ Yksinkertainen yhden pelaajan minigolfpeli
 
 ### Raportit
 
-* [PIT-raportti](https://htmlpreview.github.io/?https://github.com/yussiv/Minigolf/blob/master/dokumentaatio/checkstyle-raportti/checkstyle.html)
-* [Checkstyle-raportti](https://htmlpreview.github.io/?https://github.com/yussiv/Minigolf/blob/master/dokumentaatio/pit-raportti/index.html)
+* [PIT-raportti](https://htmlpreview.github.io/?https://github.com/yussiv/Minigolf/blob/master/dokumentaatio/pit-raportti/index.html)
+* [Checkstyle-raportti](https://htmlpreview.github.io/?https://github.com/yussiv/Minigolf/blob/master/dokumentaatio/checkstyle-raportti/checkstyle.html)

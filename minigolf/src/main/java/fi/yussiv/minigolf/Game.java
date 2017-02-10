@@ -88,7 +88,7 @@ public class Game extends Timer implements ActionListener {
         }
 
         if (ball.getY() < 5 || ball.getY() > area.getHeight() - 5) {
-            ball.setAngle((180 - ball.getAngle())%180);
+            ball.setAngle((180 - ball.getAngle()) % 180);
         }
 
         for (Obstacle o : area.getObstacles()) {
