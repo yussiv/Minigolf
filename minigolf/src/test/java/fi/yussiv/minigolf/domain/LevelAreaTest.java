@@ -24,7 +24,7 @@ public class LevelAreaTest {
 
     @Test
     public void canAddObstacle() {
-        Obstacle o = new Obstacle();
+        Obstacle o = new Wall(new Point(0,0),0,0,0);
         area.addObstacle(o);
         List<Obstacle> obstacles = area.getObstacles();
         assertTrue(obstacles.contains(o));

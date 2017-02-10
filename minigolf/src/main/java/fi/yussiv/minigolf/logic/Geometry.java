@@ -18,7 +18,7 @@ public class Geometry {
 
         if (vertical < 0) {
             angle += 90;
-        }
+        } 
 
         if (horizontal > 0) {
             angle *= -1.0;

@@ -21,7 +21,7 @@ public class Ball {
         this.x = position.getX();
         this.y = position.getY();
     }
-    
+
     public void setPosition(Point position) {
         this.x = position.getX();
         this.y = position.getY();
@@ -29,6 +29,10 @@ public class Ball {
 
     public Position getPosition() {
         return new Position(x, y);
+    }
+
+    public Point getPoint() {
+        return new Point((int) x, (int) y);
     }
 
     public double getX() {
@@ -45,7 +49,7 @@ public class Ball {
 
     /**
      * Method to determine if the ball is still moving
-     * 
+     *
      * @return boolean
      */
     public boolean isMoving() {

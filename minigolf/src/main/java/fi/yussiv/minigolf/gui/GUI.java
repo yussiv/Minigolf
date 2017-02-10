@@ -44,7 +44,7 @@ public class GUI implements Runnable {
 
     public void createComponents(Container container) {
         LevelArea area = game.getLevelArea();
-        canvas = new Canvas(area.getWidth(), area.getHeight(), ball, area.getTarget());
+        canvas = new Canvas(area.getWidth(), area.getHeight(), ball, area);
 
         container.add(canvas);
         container.addMouseMotionListener(new MinigolfMouseListener(this));

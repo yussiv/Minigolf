@@ -2,13 +2,14 @@ package fi.yussiv.minigolf;
 
 import fi.yussiv.minigolf.domain.Ball;
 import fi.yussiv.minigolf.domain.LevelArea;
+import fi.yussiv.minigolf.domain.Obstacle;
 import fi.yussiv.minigolf.domain.Player;
 import fi.yussiv.minigolf.domain.Position;
+import fi.yussiv.minigolf.domain.Wall;
 import fi.yussiv.minigolf.gui.GUI;
 import java.awt.Point;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.Random;
 import javax.swing.SwingUtilities;
 import javax.swing.Timer;
 
@@ -25,10 +26,12 @@ public class Game extends Timer implements ActionListener {
     public Game() {
         super(15, null);
         this.area = new LevelArea(600, 800);
-        
-        Random rand = new Random();
-        this.area.setStart(new Point(rand.nextInt(250) + 25, rand.nextInt(150) + 25));
-        this.area.setTarget(new Point(rand.nextInt(250) + 25, rand.nextInt(150) + 625));
+        this.area.addObstacle(new Wall(new Point(100, 50), 90, 10, 400));
+        this.area.addObstacle(new Wall(new Point(100, 50), 0, 10, 600));
+        this.area.addObstacle(new Wall(new Point(500, 50), 0, 10, 600));
+
+        this.area.setStart(new Point(300, 650));
+        this.area.setTarget(new Point(300, 100));
 
         this.player = new Player("Player 1");
         this.player.setBall(new Ball());
@@ -54,22 +57,25 @@ public class Game extends Timer implements ActionListener {
     }
 
     /**
-     * Sets the balls movement parameters for the next hit, 
-     * effectively putting the ball in motion.
-     * 
-     * @param force 
+     * Sets the balls movement parameters for the next hit, effectively putting
+     * the ball in motion.
+     *
+     * @param force
      * @param angle -180 to 180 degrees. 0 degrees means straight up.
      */
     public void excecutePutt(double force, double angle) {
         Ball ball = player.getBall();
+//        if (ball.isMoving()) {
+//            return;
+//        }
         ball.setVelocity(force / 10);
         ball.setAngle(angle);
     }
 
     /**
      * Checks whether the ball has hit something
-     * 
-     * @param ball 
+     *
+     * @param ball
      */
     public void maybeCollision(Ball ball) {
 
@@ -82,7 +88,17 @@ public class Game extends Timer implements ActionListener {
         }
 
         if (ball.getY() < 5 || ball.getY() > area.getHeight() - 5) {
-            ball.setAngle(180 - ball.getAngle());
+            ball.setAngle((180 - ball.getAngle())%180);
+        }
+
+        for (Obstacle o : area.getObstacles()) {
+            if (o.overlaps(ball.getPoint())) {
+                if (o.getAngle() > 179) {
+                    ball.setAngle((o.getAngle() - ball.getAngle()) % 180);
+                } else {
+                    ball.setAngle(-1 * ball.getAngle());
+                }
+            }
         }
     }
 
