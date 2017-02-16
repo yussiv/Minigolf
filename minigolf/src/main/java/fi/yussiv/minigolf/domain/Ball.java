@@ -12,6 +12,7 @@ public class Ball {
     private double velocity;
     private double angle;
     private Player player;
+    private boolean isVisible = true;
 
     public void setPlayer(Player player) {
         this.player = player;
@@ -75,5 +76,13 @@ public class Ball {
     @Override
     public String toString() {
         return String.format("(%.3f, %.3f) velocity:%.3f, angle:%.1f", x, y, velocity, angle);
+    }
+
+    public void setVisible(boolean isVisible) {
+        this.isVisible = isVisible;
+    }
+
+    public boolean isVisible() {
+        return isVisible;
     }
 }

@@ -4,6 +4,7 @@ import fi.yussiv.minigolf.domain.Ball;
 import fi.yussiv.minigolf.domain.LevelArea;
 import fi.yussiv.minigolf.domain.Obstacle;
 import fi.yussiv.minigolf.domain.Wall;
+import fi.yussiv.minigolf.logic.Geometry;
 import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Font;
@@ -22,8 +23,10 @@ public class Canvas extends JPanel {
     private int width;
     private int height;
     private Ball ball;
-    private String mouseCoords = "";
+    private Point mousePoint = new Point(0, 0);
     private LevelArea level;
+    private Point mouseStart;
+    private Point mouseEnd;
 
     public Canvas(int width, int height, Ball ball, LevelArea level) {
         this.width = width;
@@ -59,24 +62,50 @@ public class Canvas extends JPanel {
         g.setColor(Color.WHITE);
 
         g.setFont(new Font("Arial", Font.PLAIN, 10));
-        g.drawString(mouseCoords, 480, 20);
+        g.drawString("mouse:(" + mousePoint.x + "," + mousePoint.y + ")", 480, 20);
         g.drawString("ball:(" + ballX + "," + ballY + ")", 480, 35);
         g.drawString(String.format("angle: %.2f", ball.getAngle()), 480, 50);
 
-        if (ballX >= 0 && ballY >= 0) {
+        // draw ball
+        if (ball.isVisible() && ballX >= 0 && ballY >= 0) {
             g.fillOval(ballX - 6, ballY - 6, 13, 13); // point is the center
-        } else {
+        }
+
+        // game is over
+        if (!ball.isVisible()) {
             g.setColor(Color.YELLOW);
             g.setFont(new Font("Arial", Font.BOLD, 30));
-            g.drawString("Victory!", 280, 400);
+            g.drawString("Victory!", 260, 400);
+        }
+
+        // if mouse is pressed and dragged
+        if (mouseStart != null) {
+            g2d.setColor(Color.YELLOW);
+            g2d.setStroke(new BasicStroke(5));
+            g2d.drawLine(mouseStart.x, mouseStart.y, mouseEnd.x, mouseEnd.y);
+            g2d.setFont(new Font("Arial", Font.PLAIN, 10));
+            g2d.setColor(Color.WHITE);
+            g2d.drawString(String.format("angle:%.1f",Geometry.calculateAngle(mouseStart, mouseEnd)), mouseEnd.x + 10, mouseEnd.y - 10);
         }
     }
 
-    public void setMouseCoords(String mouseCoords) {
-        this.mouseCoords = mouseCoords;
+    public void setMousePoint(Point point) {
+        this.mousePoint = point;
     }
 
     public void refresh() {
         super.repaint();
+    }
+
+    void setDragLineStart(Point start) {
+        mouseStart = start;
+    }
+
+    void setDragLineEnd(Point end) {
+        mouseEnd = end;
+    }
+
+    void clearDragLine() {
+        mouseStart = null;
     }
 }

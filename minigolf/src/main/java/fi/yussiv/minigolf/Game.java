@@ -7,6 +7,7 @@ import fi.yussiv.minigolf.domain.Player;
 import fi.yussiv.minigolf.domain.Position;
 import fi.yussiv.minigolf.domain.Wall;
 import fi.yussiv.minigolf.gui.GUI;
+import fi.yussiv.minigolf.logic.Geometry;
 import java.awt.Point;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -80,24 +81,20 @@ public class Game extends Timer implements ActionListener {
     public void maybeCollision(Ball ball) {
 
         if (targetReached()) {
-            ball.setPosition(new Position(-999, -999));
+            ball.setVisible(false);
         }
 
         if (ball.getX() > area.getWidth() - 5 || ball.getX() < 5) {
-            ball.setAngle(-1 * ball.getAngle());
+            ball.setAngle(Geometry.calculateRicochetAngle(ball.getAngle(), 0));
         }
 
         if (ball.getY() < 5 || ball.getY() > area.getHeight() - 5) {
-            ball.setAngle((180 - ball.getAngle()) % 180);
+            ball.setAngle(Geometry.calculateRicochetAngle(ball.getAngle(), 90));
         }
 
         for (Obstacle o : area.getObstacles()) {
             if (o.overlaps(ball.getPoint())) {
-                if (o.getAngle() > 179) {
-                    ball.setAngle((o.getAngle() - ball.getAngle()) % 180);
-                } else {
-                    ball.setAngle(-1 * ball.getAngle());
-                }
+                ball.setAngle(Geometry.calculateRicochetAngle(ball.getAngle(), o.getAngle()));
             }
         }
     }
