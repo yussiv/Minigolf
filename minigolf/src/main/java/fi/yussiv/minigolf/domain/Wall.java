@@ -23,12 +23,12 @@ public class Wall implements Obstacle {
 
     @Override
     public boolean overlaps(Point point) {
+
+        // handle zero and 90 degree angles
         if (Math.abs(angle) < 0.1) {
-            return point.y < start.y + length && Math.abs(point.x - start.x) < width;
-        } else if (Math.abs(angle - 180) < 0.1) {
-            return point.y > start.y - length && Math.abs(point.x - start.x) < width;
+            return point.y > start.y - width && point.y < end.y + width && Math.abs(point.x - start.x) < width;
         } else if (Math.abs(angle - 90) < 0.1) {
-            return point.x < start.x + length && Math.abs(point.y - start.y) < width;
+            return point.x > start.x - width && point.x < end.x + width && Math.abs(point.y - start.y) < width;
         } else {
             return false;
         }
@@ -54,7 +54,12 @@ public class Wall implements Obstacle {
     }
 
     @Override
-    public double getAngle() {
-        return angle;
+    public double getAngle(Point location) {
+        if (location.distance(start) < 0.5*width || location.distance(end) < 0.5*width) {
+            System.out.println("hit: "+start+" loc:"+location);
+            return (angle + 90) % 90;
+        } else {
+            return angle;
+        }
     }
 }

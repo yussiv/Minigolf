@@ -25,16 +25,6 @@ public class Geometry {
     }
 
     public static double calculateRicochetAngle(double incomingAngle, double objectAngle) {
-//        double ret;
-
-        // perpendicular hit
-//        if (Math.abs(Math.abs(incomingAngle - objectAngle) - 90) < 0.01) {
-//            ret = incomingAngle + 180;
-//            if (ret > 180) {
-//                ret -= 360;
-//            }
-//            return ret;
-//        }
         // calculate new angle difference by setting object angle to zero
         double normalizedIncomingAngle = incomingAngle - objectAngle;
 
@@ -45,8 +35,5 @@ public class Geometry {
             ret += 360;
         }
         return ret;
-//        }
-
-//        return 0.0;
     }
 }

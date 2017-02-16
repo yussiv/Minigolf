@@ -2,7 +2,6 @@ package fi.yussiv.minigolf;
 
 import fi.yussiv.minigolf.domain.LevelArea;
 import fi.yussiv.minigolf.domain.Player;
-import fi.yussiv.minigolf.domain.Position;
 import java.awt.Point;
 import org.junit.Before;
 import org.junit.Test;
@@ -44,9 +43,13 @@ public class GameTest {
         area.setTarget(new Point(90, 140));
 
         game.addPlayer(player);
-        player.getBall().setPosition(new Position(83, 147));
+        player.getBall().setPosition(new Point(83, 140));
         assertTrue(game.targetReached());
-        player.getBall().setPosition(new Position(82, 148));
+        player.getBall().setPosition(new Point(90, 147));
+        assertTrue(game.targetReached());
+        player.getBall().setPosition(new Point(82, 140));
+        assertFalse(game.targetReached());
+        player.getBall().setPosition(new Point(90, 148));
         assertFalse(game.targetReached());
     }
 

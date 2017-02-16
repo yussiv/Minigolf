@@ -41,8 +41,8 @@ public class Canvas extends JPanel {
         g.setColor(GREEN);
         g.fillRect(0, 0, width, height);
 
-        int ballX = (int) ball.getX();
-        int ballY = (int) ball.getY();
+        int ballX = ball.getPosition().x;
+        int ballY = ball.getPosition().y;
         Point target = level.getTarget();
 
         g.setColor(Color.BLACK);

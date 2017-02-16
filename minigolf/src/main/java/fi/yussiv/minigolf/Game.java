@@ -4,7 +4,6 @@ import fi.yussiv.minigolf.domain.Ball;
 import fi.yussiv.minigolf.domain.LevelArea;
 import fi.yussiv.minigolf.domain.Obstacle;
 import fi.yussiv.minigolf.domain.Player;
-import fi.yussiv.minigolf.domain.Position;
 import fi.yussiv.minigolf.domain.Wall;
 import fi.yussiv.minigolf.gui.GUI;
 import fi.yussiv.minigolf.logic.Geometry;
@@ -30,6 +29,7 @@ public class Game extends Timer implements ActionListener {
         this.area.addObstacle(new Wall(new Point(100, 50), 90, 10, 400));
         this.area.addObstacle(new Wall(new Point(100, 50), 0, 10, 600));
         this.area.addObstacle(new Wall(new Point(500, 50), 0, 10, 600));
+        this.area.addObstacle(new Wall(new Point(250, 150), 90, 20, 100));
 
         this.area.setStart(new Point(300, 650));
         this.area.setTarget(new Point(300, 100));
@@ -93,14 +93,14 @@ public class Game extends Timer implements ActionListener {
         }
 
         for (Obstacle o : area.getObstacles()) {
-            if (o.overlaps(ball.getPoint())) {
-                ball.setAngle(Geometry.calculateRicochetAngle(ball.getAngle(), o.getAngle()));
+            if (o.overlaps(ball.getPosition())) {
+                ball.setAngle(Geometry.calculateRicochetAngle(ball.getAngle(), o.getAngle(ball.getPosition())));
             }
         }
     }
 
     public boolean targetReached() {
-        return player.getBall().getPosition().overlaps(area.getTarget(), 8);
+        return player.getBall().getPosition().distance(area.getTarget()) < 8;
     }
 
     public Player getPlayer() {
@@ -112,13 +112,13 @@ public class Game extends Timer implements ActionListener {
         Ball ball = player.getBall();
         if (ball.isMoving() && !targetReached()) {
             double dx = 0, dy = 0, x, y;
-            dx = Math.round(ball.getVelocity() * Math.sin(ball.getAngle() * Math.PI / 180));
-            dy = Math.round(ball.getVelocity() * Math.cos(ball.getAngle() * Math.PI / 180));
+            dx = ball.getVelocity() * Math.sin(Math.toRadians(ball.getAngle()));
+            dy = ball.getVelocity() * Math.cos(Math.toRadians(ball.getAngle()));
             x = ball.getX() + dx;
             y = ball.getY() + dy;
             ball.setVelocity(ball.getVelocity() * RESISTANCE_COEFFICIENT);
-            ball.setPosition(new Position(x, y));
-
+//            ball.setPosition(new Position(x, y));
+            ball.getPosition().setLocation(x, y);
             maybeCollision(ball);
         }
         gui.refresh();

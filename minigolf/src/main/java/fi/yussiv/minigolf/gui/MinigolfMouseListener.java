@@ -39,7 +39,7 @@ public class MinigolfMouseListener implements MouseListener, MouseMotionListener
         double angle = Geometry.calculateAngle(start, end);
         double distance = start.distance(end);
         gui.getGame().excecutePutt(distance, angle);
-        System.out.printf("Putt: start:(%d,%d) end:(%d,%d) angle: %.2f force: %.2f", start.x, start.y, end.x, end.y, angle, distance);
+        System.out.printf("Putt: start:(%d,%d) end:(%d,%d) angle: %.2f force: %.2f\n", start.x, start.y, end.x, end.y, angle, distance);
         canvas.clearDragLine();
     }
 

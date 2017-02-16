@@ -50,14 +50,14 @@ public class GeometryTest {
     public void purpendicularCollisionAngleCalculationsOK() {
         
         assertEquals(180, Geometry.calculateRicochetAngle(0,90), 0.001);
-//        assertEquals(180, Geometry.calculateRicochetAngle(0,-90), 0.001);
-//        assertEquals(0, Geometry.calculateRicochetAngle(180,90), 0.001);
-//        assertEquals(0, Geometry.calculateRicochetAngle(180,-90), 0.001);
-//        
-//        assertEquals(90, Geometry.calculateRicochetAngle(-90,0), 0.001);
-//        assertEquals(-90, Geometry.calculateRicochetAngle(90,0), 0.001);
-//        
-//        assertEquals(-85, Geometry.calculateRicochetAngle(95,5), 0.001);
+        assertEquals(180, Geometry.calculateRicochetAngle(0,-90), 0.001);
+        assertEquals(0, Geometry.calculateRicochetAngle(180,90), 0.001);
+        assertEquals(0, Geometry.calculateRicochetAngle(180,-90), 0.001);
+        
+        assertEquals(90, Geometry.calculateRicochetAngle(-90,0), 0.001);
+        assertEquals(-90, Geometry.calculateRicochetAngle(90,0), 0.001);
+        
+        assertEquals(-85, Geometry.calculateRicochetAngle(95,5), 0.001);
     }
     
     @Test

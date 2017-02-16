@@ -7,41 +7,30 @@ import java.awt.Point;
  */
 public class Ball {
 
-    private double x;
-    private double y;
     private double velocity;
     private double angle;
     private Player player;
     private boolean isVisible = true;
+    private Point position;
 
     public void setPlayer(Player player) {
         this.player = player;
     }
-
-    public void setPosition(Position position) {
-        this.x = position.getX();
-        this.y = position.getY();
-    }
-
+    
     public void setPosition(Point position) {
-        this.x = position.getX();
-        this.y = position.getY();
+        this.position = position;
     }
 
-    public Position getPosition() {
-        return new Position(x, y);
-    }
-
-    public Point getPoint() {
-        return new Point((int) x, (int) y);
+    public Point getPosition() {
+        return position;
     }
 
     public double getX() {
-        return x;
+        return position.getX();
     }
 
     public double getY() {
-        return y;
+        return position.getY();
     }
 
     public Player getPlayer() {
@@ -75,7 +64,7 @@ public class Ball {
 
     @Override
     public String toString() {
-        return String.format("(%.3f, %.3f) velocity:%.3f, angle:%.1f", x, y, velocity, angle);
+        return String.format("(%.3f, %.3f) velocity:%.3f, angle:%.1f", position.x, position.y, velocity, angle);
     }
 
     public void setVisible(boolean isVisible) {
