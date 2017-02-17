@@ -7,11 +7,11 @@ import java.awt.Point;
  */
 public class Wall implements Obstacle {
 
-    private Point start;
-    private Point end;
-    private double angle;
-    private int width;
-    private int length;
+    private final Point start;
+    private final Point end;
+    private final double angle;
+    private final int width;
+    private final int length;
 
     public Wall(Point start, double angle, int width, int length) {
         this.start = start;
@@ -22,16 +22,18 @@ public class Wall implements Obstacle {
     }
 
     @Override
-    public boolean overlaps(Point point) {
+    public boolean overlaps(Point point, int margin) {
 
         // handle zero and 90 degree angles
         if (Math.abs(angle) < 0.1) {
-            return point.y > start.y - width && point.y < end.y + width && Math.abs(point.x - start.x) < width;
+            // vertical wall
+            return point.y > start.y - width / 2 - margin && point.y < end.y + width / 2 + margin && Math.abs(point.x - start.x) < width / 2 + margin;
         } else if (Math.abs(angle - 90) < 0.1) {
-            return point.x > start.x - width && point.x < end.x + width && Math.abs(point.y - start.y) < width;
-        } else {
-            return false;
+            // horizontal wall
+            return point.x > start.x - width / 2 - margin && point.x < end.x + width / 2 + margin && Math.abs(point.y - start.y) < width / 2 + margin;
         }
+
+        return false;
     }
 
     public Point getStart() {
@@ -54,12 +56,24 @@ public class Wall implements Obstacle {
     }
 
     @Override
-    public double getAngle(Point location) {
-        if (location.distance(start) < 0.5*width || location.distance(end) < 0.5*width) {
-            System.out.println("hit: "+start+" loc:"+location);
-            return (angle + 90) % 90;
-        } else {
-            return angle;
+    public double getAngle(Ball ball) {
+        
+        // hit start 
+        if (ball.getPosition().distance(start) < width / 2 + ball.getRadius()) {
+            if ((Math.abs(angle % 180) < 0.01 && Math.abs(ball.getAngle()) < 90) 
+                    || (Math.abs(angle) - 90 < 0.01 && ball.getAngle() > 0)){
+                return (this.angle + 90) % 90;
+            }
         }
+
+        // hit end
+        if (ball.getPosition().distance(end) < width / 2 + ball.getRadius()) {
+            if ((Math.abs(angle) - 90 < 0.01 && Math.abs(ball.getAngle()) > 90) 
+                    || (Math.abs(angle) - 90 < 0.01 && ball.getAngle() < 0)) {
+                return (this.angle + 90) % 90;
+            }
+        }
+
+        return this.angle;
     }
 }

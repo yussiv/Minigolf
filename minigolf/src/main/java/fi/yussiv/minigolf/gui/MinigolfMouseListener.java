@@ -28,6 +28,9 @@ public class MinigolfMouseListener implements MouseListener, MouseMotionListener
 
     @Override
     public void mousePressed(MouseEvent me) {
+        if (gui.isAnimating()) {
+            return;
+        }
         this.start = me.getPoint();
         canvas.setDragLineStart(start);
         canvas.setDragLineEnd(start);
@@ -35,11 +38,13 @@ public class MinigolfMouseListener implements MouseListener, MouseMotionListener
 
     @Override
     public void mouseReleased(MouseEvent me) {
+        if (gui.isAnimating()) {
+            return;
+        }
         end = me.getPoint();
         double angle = Geometry.calculateAngle(start, end);
         double distance = start.distance(end);
         gui.getGame().excecutePutt(distance, angle);
-        System.out.printf("Putt: start:(%d,%d) end:(%d,%d) angle: %.2f force: %.2f\n", start.x, start.y, end.x, end.y, angle, distance);
         canvas.clearDragLine();
     }
 

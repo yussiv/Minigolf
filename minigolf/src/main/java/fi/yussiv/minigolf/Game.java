@@ -19,9 +19,11 @@ import javax.swing.Timer;
 public class Game extends Timer implements ActionListener {
 
     private static final double RESISTANCE_COEFFICIENT = 0.99;
+    private static final double MAX_FORCE = 100;
     private Player player;
     private LevelArea area;
     private GUI gui;
+    private boolean gameOver = false;
 
     public Game() {
         super(15, null);
@@ -61,16 +63,16 @@ public class Game extends Timer implements ActionListener {
      * Sets the balls movement parameters for the next hit, effectively putting
      * the ball in motion.
      *
-     * @param force
+     * @param force between 0 and 100
      * @param angle -180 to 180 degrees. 0 degrees means straight up.
      */
     public void excecutePutt(double force, double angle) {
         Ball ball = player.getBall();
-//        if (ball.isMoving()) {
-//            return;
-//        }
-        ball.setVelocity(force / 10);
-        ball.setAngle(angle);
+        if (force > MAX_FORCE) {
+            force = MAX_FORCE;
+        }
+        ball.setVelocity(force / 5);
+        ball.setAngle(angle + 180);
     }
 
     /**
@@ -78,29 +80,36 @@ public class Game extends Timer implements ActionListener {
      *
      * @param ball
      */
-    public void maybeCollision(Ball ball) {
+    public void maybeCollision() {
 
-        if (targetReached()) {
-            ball.setVisible(false);
-        }
+        Ball ball = player.getBall();
 
+        // hit top or bottom
         if (ball.getX() > area.getWidth() - 5 || ball.getX() < 5) {
             ball.setAngle(Geometry.calculateRicochetAngle(ball.getAngle(), 0));
         }
 
+        // hit left or right edge
         if (ball.getY() < 5 || ball.getY() > area.getHeight() - 5) {
             ball.setAngle(Geometry.calculateRicochetAngle(ball.getAngle(), 90));
         }
 
+        // hit an obstacle
         for (Obstacle o : area.getObstacles()) {
-            if (o.overlaps(ball.getPosition())) {
-                ball.setAngle(Geometry.calculateRicochetAngle(ball.getAngle(), o.getAngle(ball.getPosition())));
+            if (o.overlaps(ball.getPosition(), ball.getRadius())) {
+                double obstacleAngle = o.getAngle(ball);
+                double newBallAngle = Geometry.calculateRicochetAngle(ball.getAngle(), obstacleAngle);
+
+                ball.setAngle(newBallAngle);
             }
         }
     }
 
-    public boolean targetReached() {
-        return player.getBall().getPosition().distance(area.getTarget()) < 8;
+    private void maybeReachedTarget() {
+        gameOver = player.getBall().getPosition().distance(area.getTarget()) < 8;
+        if (gameOver) {
+            player.getBall().setVisible(false);
+        }
     }
 
     public Player getPlayer() {
@@ -110,17 +119,23 @@ public class Game extends Timer implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent ae) {
         Ball ball = player.getBall();
-        if (ball.isMoving() && !targetReached()) {
+        if (ball.isMoving() && !gameOver) {
             double dx = 0, dy = 0, x, y;
             dx = ball.getVelocity() * Math.sin(Math.toRadians(ball.getAngle()));
             dy = ball.getVelocity() * Math.cos(Math.toRadians(ball.getAngle()));
             x = ball.getX() + dx;
             y = ball.getY() + dy;
             ball.setVelocity(ball.getVelocity() * RESISTANCE_COEFFICIENT);
-//            ball.setPosition(new Position(x, y));
-            ball.getPosition().setLocation(x, y);
-            maybeCollision(ball);
+            ball.setPosition(x, y);
+
+            maybeCollision();
+            maybeReachedTarget();
         }
         gui.refresh();
     }
+
+    public boolean gameIsOver() {
+        return gameOver;
+    }
+
 }

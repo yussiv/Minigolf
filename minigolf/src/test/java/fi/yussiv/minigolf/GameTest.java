@@ -43,14 +43,14 @@ public class GameTest {
         area.setTarget(new Point(90, 140));
 
         game.addPlayer(player);
-        player.getBall().setPosition(new Point(83, 140));
-        assertTrue(game.targetReached());
-        player.getBall().setPosition(new Point(90, 147));
-        assertTrue(game.targetReached());
-        player.getBall().setPosition(new Point(82, 140));
-        assertFalse(game.targetReached());
-        player.getBall().setPosition(new Point(90, 148));
-        assertFalse(game.targetReached());
+        player.getBall().setPosition(83, 140);
+        assertTrue(game.gameIsOver());
+        player.getBall().setPosition(90, 147);
+        assertTrue(game.gameIsOver());
+        player.getBall().setPosition(82, 140);
+        assertFalse(game.gameIsOver());
+        player.getBall().setPosition(90, 148);
+        assertFalse(game.gameIsOver());
     }
 
 }

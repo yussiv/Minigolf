@@ -6,14 +6,21 @@ import java.awt.Point;
  * Generic obstacle class.
  */
 public interface Obstacle {
-    public boolean overlaps(Point point);
+    /**
+     * Determines if an obstacle overlaps a given point.
+     * 
+     * @param point
+     * @param margin distance from the point that should be considered a hit
+     * @return 
+     */
+    public boolean overlaps(Point point, int margin);
 
     /**
-     * Takes the point of impact as an argument for elements in order 
-     * to calculate the angle correctly in edge cases (i.e. the ends of walls)
+     * The angle of the obstacle may differ depending on point of impact, therefore 
+     * we pass in information about the ball.
      * 
-     * @param hitLocation
+     * @param ball
      * @return angle of element
      */
-    public double getAngle(Point hitLocation);
+    public double getAngle(Ball ball);
 }

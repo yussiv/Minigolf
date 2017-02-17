@@ -11,14 +11,27 @@ public class Ball {
     private double angle;
     private Player player;
     private boolean isVisible = true;
-    private Point position;
+    private Position position;
+    private int radius = 6;
+
+    public void setRadius(int radius) {
+        this.radius = radius;
+    }
+
+    public int getRadius() {
+        return radius;
+    }
 
     public void setPlayer(Player player) {
         this.player = player;
     }
-    
-    public void setPosition(Point position) {
-        this.position = position;
+
+    public void setPosition(double x, double y) {
+        this.position.setLocation(x, y);
+    }
+
+    public void setPosition(Point p) {
+        this.position = new Position(p.x, p.y);
     }
 
     public Point getPosition() {
@@ -58,7 +71,19 @@ public class Ball {
         return angle;
     }
 
+    /**
+     * Sets the ball's movement angle. 
+     * The angle is normalized between -180 and 180 degrees.
+     * 
+     * @param angle in degrees
+     */
     public void setAngle(double angle) {
+        while (angle > 180) {
+            angle -= 360;
+        }
+        while (angle < -180) {
+            angle += 360;
+        }
         this.angle = angle;
     }
 

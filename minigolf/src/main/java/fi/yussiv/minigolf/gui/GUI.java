@@ -66,4 +66,8 @@ public class GUI implements Runnable {
     public void refresh() {
         canvas.refresh();
     }
+    
+    public boolean isAnimating() {
+        return game.getPlayer().getBall().isMoving();
+    }
 }

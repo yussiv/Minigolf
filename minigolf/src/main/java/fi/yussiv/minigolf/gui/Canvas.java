@@ -20,11 +20,11 @@ public class Canvas extends JPanel {
 
     private static final Color GREEN = new Color(62, 142, 42);
     private static final Color BROWN = new Color(101, 79, 14);
-    private int width;
-    private int height;
+    private final int width;
+    private final int height;
     private Ball ball;
     private Point mousePoint = new Point(0, 0);
-    private LevelArea level;
+    private final LevelArea level;
     private Point mouseStart;
     private Point mouseEnd;
 
@@ -62,20 +62,21 @@ public class Canvas extends JPanel {
         g.setColor(Color.WHITE);
 
         g.setFont(new Font("Arial", Font.PLAIN, 10));
-        g.drawString("mouse:(" + mousePoint.x + "," + mousePoint.y + ")", 480, 20);
-        g.drawString("ball:(" + ballX + "," + ballY + ")", 480, 35);
-        g.drawString(String.format("angle: %.2f", ball.getAngle()), 480, 50);
-
-        // draw ball
-        if (ball.isVisible() && ballX >= 0 && ballY >= 0) {
-            g.fillOval(ballX - 6, ballY - 6, 13, 13); // point is the center
-        }
+        g.drawString("mouse:(" + mousePoint.x + "," + mousePoint.y + ")", 510, 20);
+        g.drawString("ball:(" + ballX + "," + ballY + ")", 510, 35);
+        g.drawString(String.format("angle: %.2f", ball.getAngle()), 510, 50);
 
         // game is over
         if (!ball.isVisible()) {
             g.setColor(Color.YELLOW);
             g.setFont(new Font("Arial", Font.BOLD, 30));
             g.drawString("Victory!", 260, 400);
+        }
+
+        // draw ball
+        int radius = ball.getRadius();
+        if (ball.isVisible() && ballX >= 0 && ballY >= 0) {
+            g.fillOval(ballX - radius, ballY - radius, radius*2, radius*2); // point is the center
         }
 
         // if mouse is pressed and dragged
@@ -86,6 +87,7 @@ public class Canvas extends JPanel {
             g2d.setFont(new Font("Arial", Font.PLAIN, 10));
             g2d.setColor(Color.WHITE);
             g2d.drawString(String.format("angle:%.1f",Geometry.calculateAngle(mouseStart, mouseEnd)), mouseEnd.x + 10, mouseEnd.y - 10);
+            g2d.drawString(String.format("force:%.1f",Math.min(mouseStart.distance(mouseEnd), 100.0)), mouseEnd.x + 10, mouseEnd.y - 25);
         }
     }
 
