@@ -26,6 +26,12 @@ public class MinigolfMouseListener implements MouseListener, MouseMotionListener
 
     }
 
+    /**
+     * When mouse is pressed, the starting point is saved for calculating 
+     * mouse dragging animation and eventual putt force calculation.
+     * 
+     * @param me 
+     */
     @Override
     public void mousePressed(MouseEvent me) {
         if (gui.isAnimating()) {
@@ -36,6 +42,12 @@ public class MinigolfMouseListener implements MouseListener, MouseMotionListener
         canvas.setDragLineEnd(start);
     }
 
+    /**
+     * When mouse is released, the putt force is calculated and the dragging
+     * animation cleared.
+     * 
+     * @param me 
+     */
     @Override
     public void mouseReleased(MouseEvent me) {
         if (gui.isAnimating()) {

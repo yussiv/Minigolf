@@ -44,12 +44,16 @@ public class GameTest {
 
         game.addPlayer(player);
         player.getBall().setPosition(83, 140);
+        game.evaluateGameState();
         assertTrue(game.gameIsOver());
         player.getBall().setPosition(90, 147);
+        game.evaluateGameState();
         assertTrue(game.gameIsOver());
         player.getBall().setPosition(82, 140);
+        game.evaluateGameState();
         assertFalse(game.gameIsOver());
         player.getBall().setPosition(90, 148);
+        game.evaluateGameState();
         assertFalse(game.gameIsOver());
     }
 

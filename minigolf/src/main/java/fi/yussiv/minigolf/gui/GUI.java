@@ -42,6 +42,11 @@ public class GUI implements Runnable {
         frame.setVisible(true);
     }
 
+    /**
+     * Add panel contents and listeners.
+     * 
+     * @param container
+     */
     public void createComponents(Container container) {
         LevelArea area = game.getLevelArea();
         canvas = new Canvas(area.getWidth(), area.getHeight(), ball, area);
@@ -67,6 +72,11 @@ public class GUI implements Runnable {
         canvas.refresh();
     }
     
+    /**
+     * A boolean to indicate if an animation is still in progress.
+     * 
+     * @return 
+     */
     public boolean isAnimating() {
         return game.getPlayer().getBall().isMoving();
     }

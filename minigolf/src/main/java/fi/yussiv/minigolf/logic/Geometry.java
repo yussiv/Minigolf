@@ -7,6 +7,13 @@ import java.awt.Point;
  */
 public class Geometry {
 
+    /**
+     * Calculate the angle of the line created by two end points.
+     * 
+     * @param p1
+     * @param p2
+     * @return 
+     */
     public static double calculateAngle(Point p1, Point p2) {
         int vertical = p2.y - p1.y;
         int horizontal = p2.x - p1.x;
@@ -24,6 +31,13 @@ public class Geometry {
         return angle;
     }
 
+    /**
+     * Calculate how the angle of an object changes when colliding with another.
+     * 
+     * @param incomingAngle
+     * @param objectAngle
+     * @return 
+     */
     public static double calculateRicochetAngle(double incomingAngle, double objectAngle) {
         // calculate new angle difference by setting object angle to zero
         double normalizedIncomingAngle = incomingAngle - objectAngle;

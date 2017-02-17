@@ -25,6 +25,9 @@ public class Game extends Timer implements ActionListener {
     private GUI gui;
     private boolean gameOver = false;
 
+    /**
+     * Constructor including a couple of walls.
+     */
     public Game() {
         super(15, null);
         this.area = new LevelArea(600, 800);
@@ -44,6 +47,11 @@ public class Game extends Timer implements ActionListener {
         return area;
     }
 
+    /**
+     * Adds a player to the game. Also initializes a ball for said player.
+     * 
+     * @param player 
+     */
     public void addPlayer(Player player) {
         this.player = player;
         Ball ball = new Ball();
@@ -51,6 +59,9 @@ public class Game extends Timer implements ActionListener {
         ball.setPlayer(player);
     }
 
+    /**
+     * Initializes a new game. Sets ball starting location and fires up the GUI.
+     */
     public void startGame() {
         player.getBall().setPosition(area.getStart());
         gui = new GUI(this);
@@ -76,9 +87,7 @@ public class Game extends Timer implements ActionListener {
     }
 
     /**
-     * Checks whether the ball has hit something
-     *
-     * @param ball
+     * Checks whether the ball has hit something.
      */
     public void maybeCollision() {
 
@@ -105,6 +114,10 @@ public class Game extends Timer implements ActionListener {
         }
     }
 
+    /**
+     * Check if ball is over the target location. Sets boolean indicating game is over
+     * and if so, sets a flag that the ball should not be drawn by the canvas.
+     */
     private void maybeReachedTarget() {
         gameOver = player.getBall().getPosition().distance(area.getTarget()) < 8;
         if (gameOver) {
@@ -116,22 +129,40 @@ public class Game extends Timer implements ActionListener {
         return player;
     }
 
+    /**
+     * Method to process changes in the GUI. Triggered by the timer at even
+     * intervals (15ms). Calculates the movement of the ball during the
+     * interval.
+     *
+     * @param ae
+     */
     @Override
     public void actionPerformed(ActionEvent ae) {
         Ball ball = player.getBall();
+
         if (ball.isMoving() && !gameOver) {
             double dx = 0, dy = 0, x, y;
             dx = ball.getVelocity() * Math.sin(Math.toRadians(ball.getAngle()));
             dy = ball.getVelocity() * Math.cos(Math.toRadians(ball.getAngle()));
             x = ball.getX() + dx;
             y = ball.getY() + dy;
+
+            // simulate rolling resistance (=slow ball down)
             ball.setVelocity(ball.getVelocity() * RESISTANCE_COEFFICIENT);
+
             ball.setPosition(x, y);
 
-            maybeCollision();
-            maybeReachedTarget();
+            evaluateGameState();
         }
         gui.refresh();
+    }
+
+    /**
+     * Runs subroutines that check and handle changes in the game state. 
+     */
+    public void evaluateGameState() {
+        maybeCollision();
+        maybeReachedTarget();
     }
 
     public boolean gameIsOver() {

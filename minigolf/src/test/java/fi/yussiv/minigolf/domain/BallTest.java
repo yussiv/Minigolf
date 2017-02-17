@@ -40,4 +40,47 @@ public class BallTest {
         assertFalse(ball.isMoving());
     }
 
+    @Test
+    public void radiusSetOK() {
+        ball.setRadius(30);
+        assertEquals(30, ball.getRadius());
+    }
+
+    @Test
+    public void playerSetOK() {
+        Player p = new Player("jee");
+        ball.setPlayer(p);
+        
+        assertEquals("jee", ball.getPlayer().getName());
+    }
+
+    @Test
+    public void angleNormalizedOK() {
+        ball.setAngle(180.1);
+        assertEquals(-179.9, ball.getAngle(), 0.001);
+        
+        ball.setAngle(-180.1);
+        assertEquals(179.9, ball.getAngle(), 0.001);
+        
+        ball.setAngle(360);
+        assertEquals(0, ball.getAngle(), 0.001);
+        
+        ball.setAngle(-360);
+        assertEquals(0, ball.getAngle(), 0.001);
+        
+        ball.setAngle(-180);
+        assertEquals(180, ball.getAngle(), 0.001);
+        
+        ball.setAngle(180);
+        assertEquals(180, ball.getAngle(), 0.001);
+    }
+
+    @Test
+    public void visibilitySetOK() {
+        ball.setVisible(true);
+        assertTrue(ball.isVisible());
+        
+        ball.setVisible(false);
+        assertFalse(ball.isVisible());
+    }
 }

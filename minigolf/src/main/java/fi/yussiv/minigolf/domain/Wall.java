@@ -3,7 +3,7 @@ package fi.yussiv.minigolf.domain;
 import java.awt.Point;
 
 /**
- * Class representing a straight wall
+ * Class representing a straight wall.
  */
 public class Wall implements Obstacle {
 
@@ -55,22 +55,28 @@ public class Wall implements Obstacle {
         return width;
     }
 
+    /**
+     * Wall endings have a 90 degree change in angle.
+     * 
+     * @param ball
+     * @return 
+     */
     @Override
     public double getAngle(Ball ball) {
-        
+
         // hit start 
         if (ball.getPosition().distance(start) < width / 2 + ball.getRadius()) {
-            if ((Math.abs(angle % 180) < 0.01 && Math.abs(ball.getAngle()) < 90) 
-                    || (Math.abs(angle) - 90 < 0.01 && ball.getAngle() > 0)){
-                return (this.angle + 90) % 90;
+            if ((Math.abs(angle % 180) < 0.01 && Math.abs(ball.getAngle()) < 90)
+                    || (Math.abs(Math.abs(angle) - 90) < 0.01 && ball.getAngle() > 0)) {
+                return this.angle + 90;
             }
         }
 
         // hit end
         if (ball.getPosition().distance(end) < width / 2 + ball.getRadius()) {
-            if ((Math.abs(angle) - 90 < 0.01 && Math.abs(ball.getAngle()) > 90) 
+            if ((Math.abs(angle) - 90 < 0.01 && Math.abs(ball.getAngle()) > 90)
                     || (Math.abs(angle) - 90 < 0.01 && ball.getAngle() < 0)) {
-                return (this.angle + 90) % 90;
+                return this.angle + 90;
             }
         }
 

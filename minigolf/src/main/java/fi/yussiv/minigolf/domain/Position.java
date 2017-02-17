@@ -3,7 +3,9 @@ package fi.yussiv.minigolf.domain;
 import java.awt.Point;
 
 /**
- * Extension of java.awt.Point that retains floating point values.
+ * Extension of java.awt.Point that retains floating point values unchanged.
+ * The original saves the values as integers, which leads to unwanted
+ * flooring when ball movement is slow.
  */
 public class Position extends Point {
 

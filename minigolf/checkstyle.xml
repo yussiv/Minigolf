@@ -72,7 +72,7 @@
             <property name='allowEmptyMethods' value='true' />
         </module>
 
-        <!--module name="JavadocMethod">
+        <module name="JavadocMethod">
             <property name="scope" value="public"/>
             <property name="allowMissingParamTags" value="false"/>
             <property name="allowMissingPropertyJavadoc" value="true"/>
@@ -84,7 +84,7 @@
         <module name="JavadocStyle">
             <property name="scope" value="public"/>
             <property name="checkEmptyJavadoc" value="true"/>
-        </module-->
+        </module>
     </module>
     
     <!-- File Length -->

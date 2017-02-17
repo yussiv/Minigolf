@@ -14,6 +14,13 @@ public class Ball {
     private Position position;
     private int radius = 6;
 
+    /**
+     * The constructor. Default location is set to (0,0).
+     */
+    public Ball() {
+        this.position = new Position(0, 0);
+    }
+
     public void setRadius(int radius) {
         this.radius = radius;
     }
@@ -72,24 +79,19 @@ public class Ball {
     }
 
     /**
-     * Sets the ball's movement angle. 
-     * The angle is normalized between -180 and 180 degrees.
-     * 
+     * Sets the ball's movement angle. The angle is normalized between -180 and
+     * 180 degrees.
+     *
      * @param angle in degrees
      */
     public void setAngle(double angle) {
         while (angle > 180) {
             angle -= 360;
         }
-        while (angle < -180) {
+        while (angle <= -180) {
             angle += 360;
         }
         this.angle = angle;
-    }
-
-    @Override
-    public String toString() {
-        return String.format("(%.3f, %.3f) velocity:%.3f, angle:%.1f", position.x, position.y, velocity, angle);
     }
 
     public void setVisible(boolean isVisible) {
@@ -98,5 +100,10 @@ public class Ball {
 
     public boolean isVisible() {
         return isVisible;
+    }
+
+    @Override
+    public String toString() {
+        return String.format("(%.3f, %.3f) velocity:%.3f, angle:%.1f", position.x, position.y, velocity, angle);
     }
 }
