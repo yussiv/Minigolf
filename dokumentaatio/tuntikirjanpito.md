@@ -7,3 +7,5 @@
 | 2.2.2017  | 4h     | Graafisen käyttöliittymän teon opettelua |
 | 3.2.2017  | 5h     | Logiikan rakentelua ja GUIn korjailua |
 | 10.2.2017 | 5h     | Seinien lisäys ja rikkinäisten laskutoimitusten kanssa tuskailua |
+| 16.2.2017 | 4h     | Edellisviikon bugien korjausta |
+| 17.2.2017 | 6h     | Törmäyslogiikan viilausta, sekvenssikaaviota, javadoceja, testausta |
