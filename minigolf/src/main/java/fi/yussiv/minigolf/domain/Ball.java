@@ -9,7 +9,6 @@ public class Ball {
 
     private double velocity;
     private double angle;
-    private Player player;
     private boolean isVisible = true;
     private Position position;
     private int radius = 6;
@@ -27,10 +26,6 @@ public class Ball {
 
     public int getRadius() {
         return radius;
-    }
-
-    public void setPlayer(Player player) {
-        this.player = player;
     }
 
     public void setPosition(double x, double y) {
@@ -51,10 +46,6 @@ public class Ball {
 
     public double getY() {
         return position.getY();
-    }
-
-    public Player getPlayer() {
-        return player;
     }
 
     /**

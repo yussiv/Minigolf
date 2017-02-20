@@ -17,7 +17,7 @@ public class GUI implements Runnable {
 
     private JFrame frame;
     private Canvas canvas;
-    private Game game;
+    private final Game game;
 
     public GUI(Game game) {
         this.game = game;
@@ -70,14 +70,6 @@ public class GUI implements Runnable {
         return game;
     }
 
-    public JFrame getFrame() {
-        return frame;
-    }
-
-    public void refresh() {
-        canvas.refresh();
-    }
-    
     /**
      * A boolean to indicate if an animation is still in progress.
      * 
@@ -89,5 +81,10 @@ public class GUI implements Runnable {
 
     void reset() {
         game.initializeLevel();
+    }
+
+    void animate() {
+        game.simulateRound();
+        canvas.refresh();
     }
 }

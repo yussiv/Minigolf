@@ -47,14 +47,6 @@ public class BallTest {
     }
 
     @Test
-    public void playerSetOK() {
-        Player p = new Player("jee");
-        ball.setPlayer(p);
-        
-        assertEquals("jee", ball.getPlayer().getName());
-    }
-
-    @Test
     public void angleNormalizedOK() {
         ball.setAngle(180.1);
         assertEquals(-179.9, ball.getAngle(), 0.001);
