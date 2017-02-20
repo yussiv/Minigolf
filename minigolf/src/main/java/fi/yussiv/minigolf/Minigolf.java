@@ -11,10 +11,6 @@ public class Minigolf {
      * @param args
      */
     public static void main(String[] args) {
-        System.out.println("-----------------------------------------------");
-        System.out.println(" Welcome to Big League Golf - it's tremendous!");
-        System.out.println("-----------------------------------------------\n");
-
         new Game().startGame();
     }
 }

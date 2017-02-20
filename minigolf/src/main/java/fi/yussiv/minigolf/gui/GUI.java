@@ -55,19 +55,11 @@ public class GUI implements Runnable {
         reset.addActionListener(new ButtonListener(this));
         buttons.add(reset);
         
-        canvas.addMouseMotionListener(new MinigolfMouseListener(this));
-        canvas.addMouseListener(new MinigolfMouseListener(this));
+        canvas.addMouseMotionListener(new MinigolfMouseListener(this, canvas));
+        canvas.addMouseListener(new MinigolfMouseListener(this, canvas));
         
         container.add(canvas);
         container.add(buttons);
-    }
-
-    public Canvas getCanvas() {
-        return canvas;
-    }
-
-    public Game getGame() {
-        return game;
     }
 
     /**
@@ -78,12 +70,16 @@ public class GUI implements Runnable {
     public boolean isAnimating() {
         return false; //game.getPlayer().getBall().isMoving();
     }
+    
+    public boolean gameIsOver() {
+        return game.gameIsOver();
+    }
 
-    void reset() {
+    public void reset() {
         game.initializeLevel();
     }
 
-    void animate() {
+    public void animate() {
         game.simulateRound();
         canvas.refresh();
     }

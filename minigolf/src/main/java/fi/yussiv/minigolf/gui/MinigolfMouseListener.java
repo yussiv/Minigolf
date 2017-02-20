@@ -16,21 +16,21 @@ public class MinigolfMouseListener implements MouseListener, MouseMotionListener
     private Point end;
     private GUI gui;
 
-    public MinigolfMouseListener(GUI gui) {
-        this.canvas = gui.getCanvas();
+    public MinigolfMouseListener(GUI gui, Canvas canvas) {
+        this.canvas = canvas;
         this.gui = gui;
     }
 
     @Override
     public void mouseClicked(MouseEvent me) {
-
+        // not implemented
     }
 
     /**
-     * When mouse is pressed, the starting point is saved for calculating 
-     * mouse dragging animation and eventual putt force calculation.
-     * 
-     * @param me 
+     * When mouse is pressed, the starting point is saved for calculating mouse
+     * dragging animation and eventual putt force calculation.
+     *
+     * @param me
      */
     @Override
     public void mousePressed(MouseEvent me) {
@@ -45,8 +45,8 @@ public class MinigolfMouseListener implements MouseListener, MouseMotionListener
     /**
      * When mouse is released, the putt force is calculated and the dragging
      * animation cleared.
-     * 
-     * @param me 
+     *
+     * @param me
      */
     @Override
     public void mouseReleased(MouseEvent me) {
@@ -62,12 +62,12 @@ public class MinigolfMouseListener implements MouseListener, MouseMotionListener
 
     @Override
     public void mouseEntered(MouseEvent me) {
-
+        // not implemented
     }
 
     @Override
     public void mouseExited(MouseEvent me) {
-
+        // not implemented
     }
 
     @Override

@@ -32,10 +32,13 @@ public class Game {
         this.area.addObstacle(new Wall(new Point(100, 50), 90, 10, 400));
         this.area.addObstacle(new Wall(new Point(100, 50), 0, 10, 600));
         this.area.addObstacle(new Wall(new Point(500, 50), 0, 10, 600));
-        this.area.addObstacle(new Wall(new Point(250, 150), 90, 20, 100));
+        this.area.addObstacle(new Wall(new Point(110, 500), 90, 20, 150));
+        this.area.addObstacle(new Wall(new Point(230, 140), 45, 10, 100));
+        this.area.addObstacle(new Wall(new Point(303, 211), 135, 10, 100));
+        this.area.addObstacle(new Wall(new Point(361, 360), 60, 20, 150));
 
         this.area.setStart(new Point(300, 650));
-        this.area.setTarget(new Point(300, 100));
+        this.area.setTarget(new Point(300, 150));
 
         this.ball = new Ball();
     }

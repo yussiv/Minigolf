@@ -23,5 +23,5 @@ public interface Obstacle {
      * @param ball
      * @return angle of element
      */
-    public double getAngle(Ball ball);
+    public int getAngle(Ball ball);
 }
