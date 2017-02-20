@@ -15,7 +15,6 @@ public class Minigolf {
         System.out.println(" Welcome to Big League Golf - it's tremendous!");
         System.out.println("-----------------------------------------------\n");
 
-        Game game = new Game();
-        game.startGame();
+        new Game().startGame();
     }
 }

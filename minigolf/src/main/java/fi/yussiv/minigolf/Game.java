@@ -17,10 +17,10 @@ import javax.swing.Timer;
  * The game's main class.
  */
 public class Game extends Timer implements ActionListener {
-
+    
     private static final double RESISTANCE_COEFFICIENT = 0.99;
     private static final double MAX_FORCE = 100;
-    private Player player;
+    private Ball ball;
     private LevelArea area;
     private GUI gui;
     private boolean gameOver = false;
@@ -39,34 +39,29 @@ public class Game extends Timer implements ActionListener {
         this.area.setStart(new Point(300, 650));
         this.area.setTarget(new Point(300, 100));
 
-        this.player = new Player("Player 1");
-        this.player.setBall(new Ball());
+        this.ball = new Ball();
     }
 
     public LevelArea getLevelArea() {
         return area;
     }
-
-    /**
-     * Adds a player to the game. Also initializes a ball for said player.
-     * 
-     * @param player 
-     */
-    public void addPlayer(Player player) {
-        this.player = player;
-        Ball ball = new Ball();
-        player.setBall(ball);
-        ball.setPlayer(player);
+    
+    public void initializeLevel() {
+        ball.setPosition(area.getStart());
+        ball.setVisible(true);
+        ball.setAngle(0);
+        ball.setVelocity(0);
+        gameOver = false;
     }
 
     /**
      * Initializes a new game. Sets ball starting location and fires up the GUI.
      */
     public void startGame() {
-        player.getBall().setPosition(area.getStart());
         gui = new GUI(this);
         SwingUtilities.invokeLater(gui);
         addActionListener(this);
+        initializeLevel();
         start();
     }
 
@@ -78,7 +73,6 @@ public class Game extends Timer implements ActionListener {
      * @param angle -180 to 180 degrees. 0 degrees means straight up.
      */
     public void excecutePutt(double force, double angle) {
-        Ball ball = player.getBall();
         if (force > MAX_FORCE) {
             force = MAX_FORCE;
         }
@@ -90,9 +84,6 @@ public class Game extends Timer implements ActionListener {
      * Checks whether the ball has hit something.
      */
     public void maybeCollision() {
-
-        Ball ball = player.getBall();
-
         // hit top or bottom
         if (ball.getX() > area.getWidth() - 5 || ball.getX() < 5) {
             ball.setAngle(Geometry.calculateRicochetAngle(ball.getAngle(), 0));
@@ -119,14 +110,10 @@ public class Game extends Timer implements ActionListener {
      * and if so, sets a flag that the ball should not be drawn by the canvas.
      */
     private void maybeReachedTarget() {
-        gameOver = player.getBall().getPosition().distance(area.getTarget()) < 8;
+        gameOver = ball.getPosition().distance(area.getTarget()) < 8;
         if (gameOver) {
-            player.getBall().setVisible(false);
+            ball.setVisible(false);
         }
-    }
-
-    public Player getPlayer() {
-        return player;
     }
 
     /**
@@ -138,7 +125,6 @@ public class Game extends Timer implements ActionListener {
      */
     @Override
     public void actionPerformed(ActionEvent ae) {
-        Ball ball = player.getBall();
 
         if (ball.isMoving() && !gameOver) {
             double dx = 0, dy = 0, x, y;
@@ -167,6 +153,10 @@ public class Game extends Timer implements ActionListener {
 
     public boolean gameIsOver() {
         return gameOver;
+    }
+
+    public Ball getBall() {
+        return ball;
     }
 
 }
