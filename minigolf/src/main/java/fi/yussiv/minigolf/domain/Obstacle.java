@@ -18,10 +18,12 @@ public interface Obstacle {
 
     /**
      * The angle of the obstacle may differ depending on point of impact,
-     * therefore we pass in information about the ball.
+     * therefore we pass in information about the ball's position and angle.
      *
-     * @param ball
-     * @return angle of element
+     * @param inboundAngle angle in which the ball is moving
+     * @param hitPosition where the collision happens
+     * @param margin distance from hitPosition to include in calculation
+     * @return angle of wall at given point
      */
-    public int getAngle(Ball ball);
+    public int getAngle(double inboundAngle, Point hitPosition, int margin);
 }

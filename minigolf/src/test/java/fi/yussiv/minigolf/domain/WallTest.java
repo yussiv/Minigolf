@@ -21,8 +21,7 @@ public class WallTest {
         assertTrue(wall.overlaps(new Point(110, 0), 10));
         assertTrue(wall.overlaps(new Point(114, 0), 10));
         assertFalse(wall.overlaps(new Point(115, 0), 10));
-        
-        
+
         assertTrue(wall.overlaps(new Point(0, 0), 1));
         assertTrue(wall.overlaps(new Point(-1, 0), 1));
         assertTrue(wall.overlaps(new Point(-5, 0), 1));
@@ -36,8 +35,7 @@ public class WallTest {
         assertTrue(wall.overlaps(new Point(0, 110), 10));
         assertTrue(wall.overlaps(new Point(0, 114), 10));
         assertFalse(wall.overlaps(new Point(0, 115), 10));
-        
-        
+
         assertTrue(wall.overlaps(new Point(0, 0), 1));
         assertTrue(wall.overlaps(new Point(0, -1), 1));
         assertTrue(wall.overlaps(new Point(0, -5), 1));
@@ -62,7 +60,7 @@ public class WallTest {
     @Test
     public void wallAngleCorrect() {
         wall = new Wall(new Point(0, 0), 174, 10, 100);
-        assertEquals(174, wall.getAngle(new Ball()), 0.01);
+        assertEquals(174, wall.getAngle(0, new Point(0, 0), 10), 0.01);
     }
 
     @Test
@@ -71,22 +69,22 @@ public class WallTest {
         Ball ball = new Ball();
         ball.setPosition(10, 10);
         ball.setAngle(90);
-        assertEquals(180, wall.getAngle(ball), 0.01);
+        assertEquals(180, wall.getAngle(ball.getAngle(), ball.getPosition(), ball.getRadius()), 0.01);
 
         ball.setAngle(-90);
-        assertEquals(90, wall.getAngle(ball), 0.01);
+        assertEquals(90, wall.getAngle(ball.getAngle(), ball.getPosition(), ball.getRadius()), 0.01);
 
         ball.setPosition(110, 10);
-        assertEquals(180, wall.getAngle(ball), 0.01);
+        assertEquals(180, wall.getAngle(ball.getAngle(), ball.getPosition(), ball.getRadius()), 0.01);
 
         ball.setAngle(-179.9);
-        assertEquals(180, wall.getAngle(ball), 0.01);
+        assertEquals(180, wall.getAngle(ball.getAngle(), ball.getPosition(), ball.getRadius()), 0.01);
 
         ball.setAngle(-0.1);
-        assertEquals(180, wall.getAngle(ball), 0.01);
+        assertEquals(180, wall.getAngle(ball.getAngle(), ball.getPosition(), ball.getRadius()), 0.01);
 
         ball.setAngle(90);
-        assertEquals(90, wall.getAngle(ball), 0.01);
+        assertEquals(90, wall.getAngle(ball.getAngle(), ball.getPosition(), ball.getRadius()), 0.01);
     }
 
     @Test
@@ -95,10 +93,10 @@ public class WallTest {
         Ball ball = new Ball();
         ball.setPosition(10, 5);
         ball.setAngle(0);
-        assertEquals(90, wall.getAngle(ball), 0.01);
+        assertEquals(90, wall.getAngle(ball.getAngle(), ball.getPosition(), ball.getRadius()), 0.01);
 
         ball.setAngle(90);
-        assertEquals(0, wall.getAngle(ball), 0.01);
+        assertEquals(0, wall.getAngle(ball.getAngle(), ball.getPosition(), ball.getRadius()), 0.01);
 
     }
 

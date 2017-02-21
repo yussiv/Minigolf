@@ -22,14 +22,12 @@ public class GameTest {
     public void setUp() {
         game = new Game();
         area = game.getLevelArea();
-        // set up starting situation
     }
 
     @Test
     public void ballStartLocationCorrect() {
         area.setStart(new Point(200, 10));
-        game.startGame();
-        
+        game.initializeLevel(); // needed to re-place ball
         assertEquals(10, game.getBall().getY(), 0.01);
         assertEquals(200, game.getBall().getX(), 0.01);
     }
@@ -37,7 +35,6 @@ public class GameTest {
     @Test
     public void reachingTargetDetected() {
         area.setTarget(new Point(90, 140));
-        game.startGame();
 
         game.getBall().setPosition(83, 140);
         game.evaluateGameState();

@@ -4,12 +4,8 @@ import fi.yussiv.minigolf.domain.Ball;
 import fi.yussiv.minigolf.domain.LevelArea;
 import fi.yussiv.minigolf.domain.Obstacle;
 import fi.yussiv.minigolf.domain.Wall;
-import fi.yussiv.minigolf.gui.GUI;
-import fi.yussiv.minigolf.gui.GameRunner;
 import fi.yussiv.minigolf.logic.Geometry;
 import java.awt.Point;
-import java.awt.event.ActionListener;
-import javax.swing.SwingUtilities;
 
 /**
  * The game's main class.
@@ -17,11 +13,9 @@ import javax.swing.SwingUtilities;
 public class Game {
 
     private static final double RESISTANCE_COEFFICIENT = 0.99;
-    private static final double MAX_FORCE = 100;
-    private static final int REFRESH_RATE = 15;
+    private static final double MAX_VELOCITY = 100;
     private Ball ball;
     private LevelArea area;
-    private GUI gui;
     private boolean gameOver = false;
 
     /**
@@ -41,6 +35,7 @@ public class Game {
         this.area.setTarget(new Point(300, 150));
 
         this.ball = new Ball();
+        initializeLevel();
     }
 
     public LevelArea getLevelArea() {
@@ -56,33 +51,41 @@ public class Game {
     }
 
     /**
-     * Initializes a new game. Starts animation timer. Sets ball starting
-     * location and fires up the GUI.
+     * Sets the balls movement parameters. Used to simulate hitting the ball.
+     *
+     * @param velocity between 0 and MAX_VELOCITY
+     * @param angle -180 to 180 degrees. 0 degrees means straight up.
      */
-    public void startGame() {
-        gui = new GUI(this);
-        SwingUtilities.invokeLater(gui);
+    public void setBallMovement(double velocity, double angle) {
+        if (velocity > MAX_VELOCITY) {
+            velocity = MAX_VELOCITY;
+        }
+        ball.setVelocity(velocity / 5);
+        ball.setAngle(angle + 180);
+    }
 
-        GameRunner runner = new GameRunner(REFRESH_RATE, gui);
-        runner.addActionListener((ActionListener) runner);
+    public void simulateRound() {
+        if (ball.isMoving() && !gameOver) {
+            double dx = 0, dy = 0, x, y;
+            dx = ball.getVelocity() * Math.sin(Math.toRadians(ball.getAngle()));
+            dy = ball.getVelocity() * Math.cos(Math.toRadians(ball.getAngle()));
+            x = ball.getX() + dx;
+            y = ball.getY() + dy;
 
-        initializeLevel();
-        runner.start();
+            // simulate rolling resistance (=slow ball down)
+            ball.setVelocity(ball.getVelocity() * RESISTANCE_COEFFICIENT);
+            ball.setPosition(x, y);
+
+            evaluateGameState();
+        }
     }
 
     /**
-     * Sets the balls movement parameters for the next hit, effectively putting
-     * the ball in motion.
-     *
-     * @param force between 0 and 100
-     * @param angle -180 to 180 degrees. 0 degrees means straight up.
+     * Runs subroutines that check and handle changes in the game state.
      */
-    public void excecutePutt(double force, double angle) {
-        if (force > MAX_FORCE) {
-            force = MAX_FORCE;
-        }
-        ball.setVelocity(force / 5);
-        ball.setAngle(angle + 180);
+    public void evaluateGameState() {
+        maybeCollision();
+        maybeReachedTarget();
     }
 
     /**
@@ -102,7 +105,7 @@ public class Game {
         // hit an obstacle
         for (Obstacle o : area.getObstacles()) {
             if (o.overlaps(ball.getPosition(), ball.getRadius())) {
-                double obstacleAngle = o.getAngle(ball);
+                double obstacleAngle = o.getAngle(ball.getAngle(), ball.getPosition(), ball.getRadius());
                 double newBallAngle = Geometry.calculateRicochetAngle(ball.getAngle(), obstacleAngle);
 
                 ball.setAngle(newBallAngle);
@@ -122,36 +125,11 @@ public class Game {
         }
     }
 
-    /**
-     * Runs subroutines that check and handle changes in the game state.
-     */
-    public void evaluateGameState() {
-        maybeCollision();
-        maybeReachedTarget();
-    }
-
     public boolean gameIsOver() {
         return gameOver;
     }
 
     public Ball getBall() {
         return ball;
-    }
-
-    public void simulateRound() {
-        if (ball.isMoving() && !gameOver) {
-            double dx = 0, dy = 0, x, y;
-            dx = ball.getVelocity() * Math.sin(Math.toRadians(ball.getAngle()));
-            dy = ball.getVelocity() * Math.cos(Math.toRadians(ball.getAngle()));
-            x = ball.getX() + dx;
-            y = ball.getY() + dy;
-
-            // simulate rolling resistance (=slow ball down)
-            ball.setVelocity(ball.getVelocity() * RESISTANCE_COEFFICIENT);
-
-            ball.setPosition(x, y);
-
-            evaluateGameState();
-        }
     }
 }

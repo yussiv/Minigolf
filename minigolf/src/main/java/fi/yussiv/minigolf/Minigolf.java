@@ -1,7 +1,10 @@
 package fi.yussiv.minigolf;
 
+import fi.yussiv.minigolf.gui.GUI;
+import javax.swing.SwingUtilities;
+
 /**
- * Main class. Only used to start the game.
+ * Main class. Starts a game and binds the GUI to it.
  */
 public class Minigolf {
 
@@ -11,6 +14,9 @@ public class Minigolf {
      * @param args
      */
     public static void main(String[] args) {
-        new Game().startGame();
+        Game game = new Game();
+        
+        GUI gui = new GUI(game, 15);
+        SwingUtilities.invokeLater(gui);
     }
 }

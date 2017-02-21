@@ -66,20 +66,20 @@ public class Wall implements Obstacle {
      * @return
      */
     @Override
-    public int getAngle(Ball ball) {
+    public int getAngle(double ballAngle, Point position, int margin) {
 
         // hit start 
-        if (ball.getPosition().distance(start) < width / 2 + ball.getRadius()) {
-            if ((Math.abs(angle % 180) == 0 && Math.abs(ball.getAngle()) < 90)
-                    || (Math.abs(angle) == 90 && ball.getAngle() > 0)) {
+        if (position.distance(start) < width / 2 + margin) {
+            if ((Math.abs(angle % 180) == 0 && Math.abs(ballAngle) < 90)
+                    || (Math.abs(angle) == 90 && ballAngle > 0)) {
                 return this.angle + 90;
             }
         }
 
         // hit end
-        if (ball.getPosition().distance(end) < width / 2 + ball.getRadius()) {
-            if ((Math.abs(angle) == 90 && Math.abs(ball.getAngle()) > 90)
-                    || (Math.abs(angle) == 90 && ball.getAngle() < 0)) {
+        if (position.distance(end) < width / 2 + margin) {
+            if ((Math.abs(angle) == 90 && Math.abs(ballAngle) > 90)
+                    || (Math.abs(angle) == 90 && ballAngle < 0)) {
                 return this.angle + 90;
             }
         }

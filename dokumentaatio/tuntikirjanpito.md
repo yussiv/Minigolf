@@ -9,3 +9,5 @@
 | 10.2.2017 | 5h     | Seinien lisäys ja rikkinäisten laskutoimitusten kanssa tuskailua |
 | 16.2.2017 | 4h     | Edellisviikon bugien korjausta |
 | 17.2.2017 | 6h     | Törmäyslogiikan viilausta, sekvenssikaaviota, javadoceja, testausta |
+| 19.2.2017 | 1h     | Vertaispalaute |
+| 20.2.2017 | 5h     | Swingiin hajoilua, refaktorointia, törmäyksentunnistusta |
