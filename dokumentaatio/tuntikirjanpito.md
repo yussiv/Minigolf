@@ -11,3 +11,4 @@
 | 17.2.2017 | 6h     | Törmäyslogiikan viilausta, sekvenssikaaviota, javadoceja, testausta |
 | 19.2.2017 | 1h     | Vertaispalaute |
 | 20.2.2017 | 5h     | Swingiin hajoilua, refaktorointia, törmäyksentunnistusta |
+| 20.2.2017 | 2h     | Refaktorointia |
