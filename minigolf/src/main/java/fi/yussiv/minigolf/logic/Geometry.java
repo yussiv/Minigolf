@@ -10,9 +10,9 @@ public class Geometry {
     /**
      * Calculate the angle of the line created by two end points.
      * 
-     * @param p1
-     * @param p2
-     * @return 
+     * @param p1 
+     * @param p2 
+     * @return angle of line
      */
     public static double calculateAngle(Point p1, Point p2) {
         int vertical = p2.y - p1.y;
@@ -34,9 +34,9 @@ public class Geometry {
     /**
      * Calculate how the angle of an object changes when colliding with another.
      * 
-     * @param incomingAngle
-     * @param objectAngle
-     * @return 
+     * @param incomingAngle 
+     * @param objectAngle 
+     * @return angle of ricochet
      */
     public static double calculateRicochetAngle(double incomingAngle, double objectAngle) {
         // calculate new angle difference by setting object angle to zero

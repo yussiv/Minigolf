@@ -15,39 +15,42 @@ public class Game {
     private static final double RESISTANCE_COEFFICIENT = 0.99;
     private static final double MAX_VELOCITY = 100;
     private Ball ball;
-    private LevelArea area;
-    private boolean gameOver = false;
+    private LevelArea levelArea;
+    private boolean gameIsOver = false;
 
     /**
      * Constructor including a couple of walls.
      */
     public Game() {
-        this.area = new LevelArea(600, 800);
-        this.area.addObstacle(new Wall(new Point(100, 50), 90, 10, 400));
-        this.area.addObstacle(new Wall(new Point(100, 50), 0, 10, 600));
-        this.area.addObstacle(new Wall(new Point(500, 50), 0, 10, 600));
-        this.area.addObstacle(new Wall(new Point(110, 500), 90, 20, 150));
-        this.area.addObstacle(new Wall(new Point(230, 140), 45, 10, 100));
-        this.area.addObstacle(new Wall(new Point(303, 211), 135, 10, 100));
-        this.area.addObstacle(new Wall(new Point(361, 360), 60, 20, 150));
+        this.levelArea = new LevelArea(600, 800);
+        this.levelArea.addObstacle(new Wall(new Point(100, 50), 90, 10, 400));
+        this.levelArea.addObstacle(new Wall(new Point(100, 50), 0, 10, 600));
+        this.levelArea.addObstacle(new Wall(new Point(500, 50), 0, 10, 600));
+        this.levelArea.addObstacle(new Wall(new Point(110, 500), 90, 20, 150));
+        this.levelArea.addObstacle(new Wall(new Point(230, 140), 45, 10, 100));
+        this.levelArea.addObstacle(new Wall(new Point(303, 211), 135, 10, 100));
+        this.levelArea.addObstacle(new Wall(new Point(361, 360), 60, 20, 150));
 
-        this.area.setStart(new Point(300, 650));
-        this.area.setTarget(new Point(300, 150));
+        this.levelArea.setStart(new Point(300, 650));
+        this.levelArea.setTarget(new Point(300, 150));
 
         this.ball = new Ball();
         initializeLevel();
     }
 
     public LevelArea getLevelArea() {
-        return area;
+        return levelArea;
     }
 
+    /**
+     * Sets beginning attributes for ball and game status.
+     */
     public void initializeLevel() {
-        ball.setPosition(area.getStart());
+        ball.setPosition(levelArea.getStart());
         ball.setVisible(true);
         ball.setAngle(0);
         ball.setVelocity(0);
-        gameOver = false;
+        gameIsOver = false;
     }
 
     /**
@@ -64,8 +67,11 @@ public class Game {
         ball.setAngle(angle + 180);
     }
 
+    /**
+     * Moves ball and checks for collisions and whether the game is over.
+     */
     public void simulateRound() {
-        if (ball.isMoving() && !gameOver) {
+        if (ball.isMoving() && !gameIsOver) {
             double dx = 0, dy = 0, x, y;
             dx = ball.getVelocity() * Math.sin(Math.toRadians(ball.getAngle()));
             dy = ball.getVelocity() * Math.cos(Math.toRadians(ball.getAngle()));
@@ -93,17 +99,17 @@ public class Game {
      */
     public void maybeCollision() {
         // hit top or bottom
-        if (ball.getX() > area.getWidth() - 5 || ball.getX() < 5) {
+        if (ball.getX() > levelArea.getWidth() - 5 || ball.getX() < 5) {
             ball.setAngle(Geometry.calculateRicochetAngle(ball.getAngle(), 0));
         }
 
         // hit left or right edge
-        if (ball.getY() < 5 || ball.getY() > area.getHeight() - 5) {
+        if (ball.getY() < 5 || ball.getY() > levelArea.getHeight() - 5) {
             ball.setAngle(Geometry.calculateRicochetAngle(ball.getAngle(), 90));
         }
 
         // hit an obstacle
-        for (Obstacle o : area.getObstacles()) {
+        for (Obstacle o : levelArea.getObstacles()) {
             if (o.overlaps(ball.getPosition(), ball.getRadius())) {
                 double obstacleAngle = o.getAngle(ball.getAngle(), ball.getPosition(), ball.getRadius());
                 double newBallAngle = Geometry.calculateRicochetAngle(ball.getAngle(), obstacleAngle);
@@ -119,14 +125,18 @@ public class Game {
      * canvas.
      */
     private void maybeReachedTarget() {
-        gameOver = ball.getPosition().distance(area.getTarget()) < 8;
-        if (gameOver) {
+        gameIsOver = ball.getPosition().distance(levelArea.getTarget()) < 8;
+        if (gameIsOver) {
             ball.setVisible(false);
         }
     }
 
+    /**
+     * Truth value of game state.
+     * @return true if game is over
+     */
     public boolean gameIsOver() {
-        return gameOver;
+        return gameIsOver;
     }
 
     public Ball getBall() {

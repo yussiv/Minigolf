@@ -10,9 +10,9 @@ public interface Obstacle {
     /**
      * Determines if an obstacle overlaps a given point.
      *
-     * @param point
-     * @param margin
-     * @return 
+     * @param point point to check
+     * @param margin distance from point to include to calculation
+     * @return true if point overlaps
      */
     public boolean overlaps(Point point, int margin);
 

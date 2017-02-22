@@ -28,6 +28,11 @@ public class Ball {
         return radius;
     }
 
+    /**
+     * Sets position to the given floating point coordinates.
+     * @param x 
+     * @param y 
+     */
     public void setPosition(double x, double y) {
         this.position.setLocation(x, y);
     }
@@ -49,7 +54,7 @@ public class Ball {
     }
 
     /**
-     * Method to determine if the ball is still moving
+     * Method to determine if the ball is still moving.
      *
      * @return boolean
      */

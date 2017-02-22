@@ -28,6 +28,14 @@ public class Canvas extends JPanel {
     private Point mouseStart;
     private Point mouseEnd;
 
+    /**
+     * The constructor.
+     * 
+     * @param width canvas width
+     * @param height canvas height
+     * @param ball the ball instance of the game
+     * @param level instance containing walls, targets etc.
+     */
     public Canvas(int width, int height, Ball ball, LevelArea level) {
         this.width = width;
         this.height = height;

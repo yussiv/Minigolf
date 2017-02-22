@@ -3,15 +3,22 @@ package fi.yussiv.minigolf.domain;
 import java.awt.Point;
 
 /**
- * Extension of java.awt.Point that retains floating point values unchanged.
- * The original saves the values as integers, which leads to unwanted
- * flooring when ball movement is slow.
+ * Extension of java.awt.Point that retains floating point values unchanged. The
+ * original saves the values as integers, which leads to unwanted flooring when
+ * ball movement is slow.
  */
 public class Position extends Point {
 
     private double floatX;
     private double floatY;
 
+    /**
+     * Constructor initializes the extra double precision coordinate fields from
+     * the integer values supplied.
+     *
+     * @param x 
+     * @param y 
+     */
     public Position(int x, int y) {
         super(x, y);
         this.floatX = (double) x;

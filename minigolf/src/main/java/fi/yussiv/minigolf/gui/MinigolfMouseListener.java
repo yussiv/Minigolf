@@ -16,6 +16,12 @@ public class MinigolfMouseListener implements MouseListener, MouseMotionListener
     private Point end;
     private GUI gui;
 
+    /**
+     * Constructor for listener.
+     * 
+     * @param gui the GUI to report to
+     * @param canvas the canvas being listened to
+     */
     public MinigolfMouseListener(GUI gui, Canvas canvas) {
         this.canvas = canvas;
         this.gui = gui;

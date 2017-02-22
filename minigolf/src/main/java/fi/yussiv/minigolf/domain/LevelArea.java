@@ -16,14 +16,25 @@ public class LevelArea {
     private int width;
     private int height;
 
+    /**
+     * The constructor.
+     * 
+     * @param width 
+     * @param height 
+     */
     public LevelArea(int width, int height) {
         this.obstacles = new ArrayList<>();
         this.width = width;
         this.height = height;
     }
 
-    public void addObstacle(Obstacle o) {
-        obstacles.add(o);
+    /**
+     * Adds an obstacle to level.
+     * 
+     * @param obstacle to add
+     */
+    public void addObstacle(Obstacle obstacle) {
+        obstacles.add(obstacle);
     }
 
     public List<Obstacle> getObstacles() {

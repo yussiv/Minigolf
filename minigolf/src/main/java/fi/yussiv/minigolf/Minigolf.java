@@ -11,7 +11,7 @@ public class Minigolf {
     /**
      * Program main method. Pretty essential stuff.
      *
-     * @param args
+     * @param args not used
      */
     public static void main(String[] args) {
         Game game = new Game();

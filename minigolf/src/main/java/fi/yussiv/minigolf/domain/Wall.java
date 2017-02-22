@@ -14,6 +14,14 @@ public class Wall implements Obstacle {
     private final int length;
     private final int angledDistance; // helper value for collision detection
 
+    /**
+     * Constructor also initializes helper fields for collision detection.
+     * 
+     * @param start 
+     * @param angle 
+     * @param width 
+     * @param length 
+     */
     public Wall(Point start, int angle, int width, int length) {
         this.start = start;
         this.angle = angle;

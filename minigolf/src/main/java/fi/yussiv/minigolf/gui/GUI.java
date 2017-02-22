@@ -22,11 +22,23 @@ public class GUI extends Timer implements ActionListener, Runnable {
     private Canvas canvas;
     private final Game game;
 
+    /**
+     * The constructor.
+     * 
+     * @param game 
+     * @param refreshInterval in milliseconds
+     */
     public GUI(Game game, int refreshInterval) {
         super(refreshInterval, null);
         this.game = game;
     }
 
+    /**
+     * Sets appropriate values for the next putt.
+     * 
+     * @param force 
+     * @param angle 
+     */
     public void hitBall(double force, double angle) {
         game.setBallMovement(force, angle);
     }
@@ -47,7 +59,7 @@ public class GUI extends Timer implements ActionListener, Runnable {
     /**
      * Add panel contents and listeners.
      *
-     * @param container
+     * @param container JFrame content pane
      */
     public void createComponents(Container container) {
         LevelArea area = game.getLevelArea();
@@ -71,7 +83,7 @@ public class GUI extends Timer implements ActionListener, Runnable {
     /**
      * A boolean to indicate if an animation is still in progress.
      *
-     * @return
+     * @return true if still animating
      */
     public boolean isAnimating() {
         return false; //game.getPlayer().getBall().isMoving();
@@ -79,7 +91,7 @@ public class GUI extends Timer implements ActionListener, Runnable {
 
     /**
      * Tells if the ball has reached the target and the game is won.
-     * @return 
+     * @return true if game is over
      */
     public boolean gameIsOver() {
         return game.gameIsOver();
