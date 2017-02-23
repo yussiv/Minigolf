@@ -12,4 +12,4 @@
 | 19.2.2017 | 1h     | Vertaispalaute |
 | 20.2.2017 | 5h     | Swingiin hajoilua, refaktorointia, törmäyksentunnistusta |
 | 20.2.2017 | 2h     | Refaktorointia |
-| 23.2.2017 | 1h     | Dokumentointia |
+| 23.2.2017 | 2h     | Dokumentointia |
