@@ -11,6 +11,8 @@ import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Point;
+import java.util.ArrayList;
+import java.util.List;
 import javax.swing.JPanel;
 
 /**
@@ -27,10 +29,11 @@ public class Canvas extends JPanel {
     private final LevelArea level;
     private Point mouseStart;
     private Point mouseEnd;
+    private List<Paintable> obstacles;
 
     /**
      * The constructor.
-     * 
+     *
      * @param width canvas width
      * @param height canvas height
      * @param ball the ball instance of the game
@@ -41,6 +44,27 @@ public class Canvas extends JPanel {
         this.height = height;
         this.ball = ball;
         this.level = level;
+        createObstacleList();
+    }
+
+    /**
+     * Obstacles have a separate class to handle drawing of the element on the
+     * canvas
+     */
+    private void createObstacleList() {
+        this.obstacles = new ArrayList<>();
+        for (Obstacle o : level.getObstacles()) {
+            if (o.getClass() == Wall.class) {
+                Wall wall = (Wall) o;
+                obstacles.add(
+                        new Rectangle(
+                                Geometry.getOffsetPoint(wall.getStart(), wall.getAngle() - 90, wall.getWidth() / 2),
+                                Geometry.getOffsetPoint(wall.getEnd(), wall.getAngle() - 90, wall.getWidth() / 2),
+                                Geometry.getOffsetPoint(wall.getEnd(), wall.getAngle() + 90, wall.getWidth() / 2),
+                                Geometry.getOffsetPoint(wall.getStart(), wall.getAngle() + 90, wall.getWidth() / 2)
+                        ));
+            }
+        }
     }
 
     @Override
@@ -58,13 +82,8 @@ public class Canvas extends JPanel {
 
         Graphics2D g2d = (Graphics2D) g;
 
-        for (Obstacle o : level.getObstacles()) {
-            if (o.getClass() == Wall.class) {
-                Wall w = (Wall) o;
-                g2d.setColor(BROWN);
-                g2d.setStroke(new BasicStroke(w.getWidth()));
-                g2d.drawLine(w.getStart().x, w.getStart().y, w.getEnd().x, w.getEnd().y);
-            }
+        for (Paintable p : obstacles) {
+            p.paint(g2d);
         }
 
         g.setColor(Color.WHITE);

@@ -12,24 +12,25 @@ import java.awt.Point;
  */
 public class Game {
 
-    private static final double RESISTANCE_COEFFICIENT = 0.99;
+    private static final double RESISTANCE_COEFFICIENT = 0.996;
     private static final double MAX_VELOCITY = 100;
     private Ball ball;
     private LevelArea levelArea;
     private boolean gameIsOver = false;
+    private int timeout = 0;
 
     /**
      * Constructor including a couple of walls.
      */
     public Game() {
         this.levelArea = new LevelArea(600, 800);
-        this.levelArea.addObstacle(new Wall(new Point(100, 50), 90, 10, 400));
-        this.levelArea.addObstacle(new Wall(new Point(100, 50), 0, 10, 600));
-        this.levelArea.addObstacle(new Wall(new Point(500, 50), 0, 10, 600));
-        this.levelArea.addObstacle(new Wall(new Point(110, 500), 90, 20, 150));
-        this.levelArea.addObstacle(new Wall(new Point(230, 140), 45, 10, 100));
-        this.levelArea.addObstacle(new Wall(new Point(303, 211), 135, 10, 100));
-        this.levelArea.addObstacle(new Wall(new Point(361, 360), 60, 20, 150));
+        this.levelArea.addObstacle(new Wall(new Point(100, 50), 90, 16, 408));
+        this.levelArea.addObstacle(new Wall(new Point(108, 50), 0, 16, 600));
+        this.levelArea.addObstacle(new Wall(new Point(500, 50), 0, 16, 600));
+        this.levelArea.addObstacle(new Wall(new Point(110, 500), 90, 16, 158));
+        this.levelArea.addObstacle(new Wall(new Point(236, 140), 45, 16, 100));
+        this.levelArea.addObstacle(new Wall(new Point(296, 211), 135, 16, 100));
+        this.levelArea.addObstacle(new Wall(new Point(361, 360), 60, 16, 158));
 
         this.levelArea.setStart(new Point(300, 650));
         this.levelArea.setTarget(new Point(300, 150));
@@ -63,7 +64,7 @@ public class Game {
         if (velocity > MAX_VELOCITY) {
             velocity = MAX_VELOCITY;
         }
-        ball.setVelocity(velocity / 5);
+        ball.setVelocity(velocity / 10);
         ball.setAngle(angle + 180);
     }
 
@@ -98,13 +99,14 @@ public class Game {
      * Checks whether the ball has hit something.
      */
     public void maybeCollision() {
+            
         // hit top or bottom
-        if (ball.getX() > levelArea.getWidth() - 5 || ball.getX() < 5) {
+        if (ball.getX() > levelArea.getWidth() - ball.getRadius() || ball.getX() < ball.getRadius()) {
             ball.setAngle(Geometry.calculateRicochetAngle(ball.getAngle(), 0));
         }
 
         // hit left or right edge
-        if (ball.getY() < 5 || ball.getY() > levelArea.getHeight() - 5) {
+        if (ball.getY() < ball.getRadius() || ball.getY() > levelArea.getHeight() - ball.getRadius()) {
             ball.setAngle(Geometry.calculateRicochetAngle(ball.getAngle(), 90));
         }
 

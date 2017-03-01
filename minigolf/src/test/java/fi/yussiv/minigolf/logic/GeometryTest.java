@@ -44,6 +44,9 @@ public class GeometryTest {
         
         b = new Point(-30,10);
         assertEquals(-71.6, Geometry.calculateAngle(a, b), 0.1);
+        
+        b = new Point(-30,10);
+        assertEquals(-71.6, Geometry.calculateAngle(a, b), 0.1);
     }
     
     @Test

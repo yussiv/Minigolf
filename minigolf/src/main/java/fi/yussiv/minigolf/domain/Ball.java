@@ -1,5 +1,6 @@
 package fi.yussiv.minigolf.domain;
 
+import fi.yussiv.minigolf.logic.Geometry;
 import java.awt.Point;
 
 /**
@@ -81,13 +82,7 @@ public class Ball {
      * @param angle in degrees
      */
     public void setAngle(double angle) {
-        while (angle > 180) {
-            angle -= 360;
-        }
-        while (angle <= -180) {
-            angle += 360;
-        }
-        this.angle = angle;
+        this.angle = Geometry.normalizeAngle(angle);
     }
 
     public void setVisible(boolean isVisible) {

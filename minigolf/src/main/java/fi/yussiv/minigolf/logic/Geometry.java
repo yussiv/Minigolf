@@ -9,9 +9,9 @@ public class Geometry {
 
     /**
      * Calculate the angle of the line created by two end points.
-     * 
-     * @param p1 
-     * @param p2 
+     *
+     * @param p1 starting point
+     * @param p2 ending point
      * @return angle of line
      */
     public static double calculateAngle(Point p1, Point p2) {
@@ -33,7 +33,7 @@ public class Geometry {
 
     /**
      * Calculate how the angle of an object changes when colliding with another.
-     * 
+     *
      * @param incomingAngle 
      * @param objectAngle 
      * @return angle of ricochet
@@ -49,5 +49,36 @@ public class Geometry {
             ret += 360;
         }
         return ret;
+    }
+
+    /**
+     * Calculates a point at a specified distance and angle from the origin
+     * point.
+     *
+     * @param origin 
+     * @param angle 
+     * @param distance 
+     * @return point offset by parameters
+     */
+    public static Point getOffsetPoint(Point origin, double angle, int distance) {
+        angle = normalizeAngle(angle);
+
+        return new Point((int) Math.round(Math.sin(Math.toRadians(angle)) * distance) + origin.x, (int) Math.round(Math.cos(Math.toRadians(angle)) * distance) + origin.y);
+    }
+
+    /**
+     * Normalizes given angle to be in between -180 to 180 degrees.
+     *
+     * @param angle the angle to be translated
+     * @return angle between -180 to 180 degrees
+     */
+    public static double normalizeAngle(double angle) {
+        while (angle > 180) {
+            angle -= 360;
+        }
+        while (angle <= -180) {
+            angle += 360;
+        }
+        return angle;
     }
 }

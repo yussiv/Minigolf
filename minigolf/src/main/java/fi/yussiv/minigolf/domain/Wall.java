@@ -1,5 +1,6 @@
 package fi.yussiv.minigolf.domain;
 
+import fi.yussiv.minigolf.logic.Geometry;
 import java.awt.Point;
 
 /**
@@ -12,13 +13,13 @@ public class Wall implements Obstacle {
     private final int angle;
     private final int width;
     private final int length;
-    private final int angledDistance; // helper value for collision detection
+    private int latestPerceivedAngle; // collision angle is saved on calculation
 
     /**
      * Constructor also initializes helper fields for collision detection.
-     * 
-     * @param start 
-     * @param angle 
+     *
+     * @param start starting point
+     * @param angle main angle of wall
      * @param width 
      * @param length 
      */
@@ -28,24 +29,12 @@ public class Wall implements Obstacle {
         this.width = width;
         this.length = length;
         this.end = calculateEnd();
-        this.angledDistance = calculateAngledDistance();
+        this.latestPerceivedAngle = angle;
     }
 
     @Override
     public boolean overlaps(Point point, int margin) {
-
-        switch (angle) {
-            case 0:
-                // vertical wall
-                return point.y > start.y - width / 2 - margin && point.y < end.y + width / 2 + margin && Math.abs(point.x - start.x) < width / 2 + margin;
-            case 90:
-                // horizontal wall
-                return point.x > start.x - width / 2 - margin && point.x < end.x + width / 2 + margin && Math.abs(point.y - start.y) < width / 2 + margin;
-            default:
-                // all other angles
-                double distance = point.distance(calculateWallPoint(point));
-                return distance < angledDistance + margin;
-        }
+        return distanceToWallEdge(point) <= margin;
     }
 
     public Point getStart() {
@@ -67,75 +56,64 @@ public class Wall implements Obstacle {
         return width;
     }
 
+    public int getAngle() {
+        return angle;
+    }
+    
     /**
      * Wall endings have a 90 degree change in angle.
-     *
-     * @param ball
-     * @return
      */
     @Override
     public int getAngle(double ballAngle, Point position, int margin) {
-
-        // hit start 
-        if (position.distance(start) < width / 2 + margin) {
-            if ((Math.abs(angle % 180) == 0 && Math.abs(ballAngle) < 90)
-                    || (Math.abs(angle) == 90 && ballAngle > 0)) {
-                return this.angle + 90;
-            }
-        }
-
-        // hit end
-        if (position.distance(end) < width / 2 + margin) {
-            if ((Math.abs(angle) == 90 && Math.abs(ballAngle) > 90)
-                    || (Math.abs(angle) == 90 && ballAngle < 0)) {
-                return this.angle + 90;
-            }
-        }
-
-        return this.angle;
+        // the angle is determined during the overlap calculations because it would contain identical conditionals
+        return latestPerceivedAngle;
     }
 
     /**
-     * Calculates point distance from the center of the wall. Assumes that wall
-     * angle is positive and under 180 degrees.
+     * Calculate virtual dimension of wall and return the distance of the point
+     * to the edge of the wall
      *
-     * @return
+     * @param point the distance of which to calculate
+     * @return distance
      */
-    private Point calculateWallPoint(Point point) {
-        if (point.x < start.x) {
-            return start;
-        }
+    private double distanceToWallEdge(Point point) {
+        double angleFromStartToPoint = Geometry.calculateAngle(start, point);
+        double angleFromEndToPoint = Geometry.calculateAngle(point, end);
 
-        if (point.x > end.x) {
-            return end;
-        }
+        // normalize all angles relative to zero degree wall angle
+        angleFromStartToPoint = Geometry.normalizeAngle(angleFromStartToPoint - angle);
+        angleFromEndToPoint = Geometry.normalizeAngle(angleFromEndToPoint - angle);
+        double angleFromPointToStart = Geometry.normalizeAngle(180 + angleFromStartToPoint);
+        double angleFromPointToEnd = Geometry.normalizeAngle(180 + angleFromEndToPoint);
 
-        int y;
-        int dx = Math.abs(start.x - point.x);
+        double distanceToStart = start.distance(point);
+        double distanceToEnd = end.distance(point);
 
-        if (angle < 90) {
-            // 0 < x < 90
-            y = start.y + (int) Math.round(1.0 * dx * Math.tan(Math.toRadians(90 - angle)));
-        } else {
-            // 90 < x < 180
-            y = start.y - (int) Math.round(1.0 * dx / Math.tan(Math.toRadians(180 - angle)));
-        }
-        return new Point(point.x, y);
-    }
+        if (Math.abs(angleFromStartToPoint) <= 90 && Math.abs(angleFromEndToPoint) <= 90) {
+            // between start and end points i.e. side hit
+            latestPerceivedAngle = angle;
+            return Math.sin(Math.toRadians(Math.abs(angleFromStartToPoint))) * distanceToStart - width / 2;
+        } else if (Math.abs(angleFromPointToStart) <= 90) {
+            // hit start
+            latestPerceivedAngle = (int) Geometry.normalizeAngle(angle + 90);
+            double d = Math.cos(Math.toRadians(Math.abs(angleFromPointToStart))) * distanceToStart;
+            double w = Math.sin(Math.toRadians(Math.abs(angleFromPointToStart))) * distanceToStart;
 
-    /**
-     * Calculates the distance from the edge of the wall to the center in a
-     * horizontal direction.
-     *
-     * @return
-     */
-    private int calculateAngledDistance() {
-        if (angle < 90) {
-            // 0 < x < 90
-            return (int) Math.round(0.5 * width / Math.sin(Math.toRadians(angle)));
-        } else {
-            // 90 < x < 180
-            return (int) Math.round(0.5 * width / Math.cos(Math.toRadians(180 - angle)));
+            // the distance is valid only for the width of the wall
+            if (w <= width / 2) {
+                return d;
+            }
+        } else if (Math.abs(angleFromPointToEnd) <= 90) {
+            // hit end
+            latestPerceivedAngle = (int) Geometry.normalizeAngle(angle + 90);
+            double d = Math.cos(Math.toRadians(Math.abs(angleFromPointToEnd))) * distanceToEnd;
+            double w = Math.sin(Math.toRadians(Math.abs(angleFromPointToEnd))) * distanceToEnd;
+
+            if (w <= width / 2) {
+                return d;
+            }
         }
+        // infinity
+        return Double.MAX_VALUE;
     }
 }

@@ -19,13 +19,12 @@ public class WallTest {
         assertEquals(new Point(100, 0), wall.getEnd());
         assertTrue(wall.overlaps(new Point(100, 0), 10));
         assertTrue(wall.overlaps(new Point(110, 0), 10));
-        assertTrue(wall.overlaps(new Point(114, 0), 10));
-        assertFalse(wall.overlaps(new Point(115, 0), 10));
+        assertFalse(wall.overlaps(new Point(111, 0), 10));
 
+        assertTrue(wall.overlaps(new Point(1, 0), 1));
         assertTrue(wall.overlaps(new Point(0, 0), 1));
         assertTrue(wall.overlaps(new Point(-1, 0), 1));
-        assertTrue(wall.overlaps(new Point(-5, 0), 1));
-        assertFalse(wall.overlaps(new Point(-6, 0), 1));
+        assertFalse(wall.overlaps(new Point(-2, 0), 1));
     }
 
     @Test
@@ -33,13 +32,12 @@ public class WallTest {
         wall = new Wall(new Point(0, 0), 0, 10, 100);
         assertTrue(wall.overlaps(new Point(0, 100), 10));
         assertTrue(wall.overlaps(new Point(0, 110), 10));
-        assertTrue(wall.overlaps(new Point(0, 114), 10));
-        assertFalse(wall.overlaps(new Point(0, 115), 10));
+        assertFalse(wall.overlaps(new Point(0, 111), 10));
 
+        assertTrue(wall.overlaps(new Point(0, 1), 1));
         assertTrue(wall.overlaps(new Point(0, 0), 1));
         assertTrue(wall.overlaps(new Point(0, -1), 1));
-        assertTrue(wall.overlaps(new Point(0, -5), 1));
-        assertFalse(wall.overlaps(new Point(0, -6), 1));
+        assertFalse(wall.overlaps(new Point(0, -2), 1));
     }
 
     @Test
@@ -66,37 +64,31 @@ public class WallTest {
     @Test
     public void horizontalWallAngleCorrectAtEnds() {
         wall = new Wall(new Point(10, 10), 90, 10, 100);
-        Ball ball = new Ball();
-        ball.setPosition(10, 10);
-        ball.setAngle(90);
-        assertEquals(180, wall.getAngle(ball.getAngle(), ball.getPosition(), ball.getRadius()), 0.01);
+        
+        wall.overlaps(new Point(9,10), 16);
+        assertEquals(180, wall.getAngle(0,null,0), 0.01);
 
-        ball.setAngle(-90);
-        assertEquals(90, wall.getAngle(ball.getAngle(), ball.getPosition(), ball.getRadius()), 0.01);
+        wall.overlaps(new Point(10,16), 16);
+        assertEquals(90, wall.getAngle(0,null,0), 0.01);
+        
+        wall.overlaps(new Point(10,4), 16);
+        assertEquals(90, wall.getAngle(0,null,0), 0.01);
 
-        ball.setPosition(110, 10);
-        assertEquals(180, wall.getAngle(ball.getAngle(), ball.getPosition(), ball.getRadius()), 0.01);
+        wall.overlaps(new Point(111,10), 16);
+        assertEquals(180, wall.getAngle(0,null,0), 0.01);
 
-        ball.setAngle(-179.9);
-        assertEquals(180, wall.getAngle(ball.getAngle(), ball.getPosition(), ball.getRadius()), 0.01);
-
-        ball.setAngle(-0.1);
-        assertEquals(180, wall.getAngle(ball.getAngle(), ball.getPosition(), ball.getRadius()), 0.01);
-
-        ball.setAngle(90);
-        assertEquals(90, wall.getAngle(ball.getAngle(), ball.getPosition(), ball.getRadius()), 0.01);
+        wall.overlaps(new Point(117,10), 16);
+        assertEquals(180, wall.getAngle(0,null,0), 0.01);
     }
 
     @Test
     public void verticalWallAngleCorrectAtEnds() {
         wall = new Wall(new Point(10, 10), 0, 10, 100);
-        Ball ball = new Ball();
-        ball.setPosition(10, 5);
-        ball.setAngle(0);
-        assertEquals(90, wall.getAngle(ball.getAngle(), ball.getPosition(), ball.getRadius()), 0.01);
+        wall.overlaps(new Point(10,9), 16);
+        assertEquals(90, wall.getAngle(0,null,0), 0.01);
 
-        ball.setAngle(90);
-        assertEquals(0, wall.getAngle(ball.getAngle(), ball.getPosition(), ball.getRadius()), 0.01);
+        wall.overlaps(new Point(4,20), 16);
+        assertEquals(0, wall.getAngle(0,null,0), 0.01);
 
     }
 

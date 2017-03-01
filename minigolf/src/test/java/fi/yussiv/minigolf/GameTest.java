@@ -73,11 +73,11 @@ public class GameTest {
     @Test
     public void ballVelocityCannotGoOverMaximum() {
         game.setBallMovement(100, 0);
-        assertEquals(100/5, game.getBall().getVelocity(), 0.01);
+        assertEquals(10, game.getBall().getVelocity(), 0.01);
         game.setBallMovement(100.1, 0);
-        assertEquals(100/5, game.getBall().getVelocity(), 0.01);
+        assertEquals(10, game.getBall().getVelocity(), 0.01);
         game.setBallMovement(251, 0);
-        assertEquals(100/5, game.getBall().getVelocity(), 0.01);
+        assertEquals(10, game.getBall().getVelocity(), 0.01);
     }
     
     @Test
@@ -99,7 +99,7 @@ public class GameTest {
         
         assertEquals(100, ball.getY(), 0.001);
         assertEquals(0, ball.getX(), 0.001);
-        assertEquals(99, ball.getVelocity(), 0.01);
+        assertEquals(99.6, ball.getVelocity(), 0.01);
         
         ball.setVelocity(0);
         game.simulateRound();
