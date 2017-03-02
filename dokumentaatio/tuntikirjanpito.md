@@ -13,3 +13,5 @@
 | 20.2.2017 | 5h     | Swingiin hajoilua, refaktorointia, törmäyksentunnistusta |
 | 20.2.2017 | 2h     | Refaktorointia |
 | 23.2.2017 | 2h     | Dokumentointia |
+| 25.2.2017 | 2h     | Seinien piirtoon erillinen luokka |
+| 1.3.2017  | 5h     | Törmäyksentunnistus uusiksi |
