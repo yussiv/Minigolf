@@ -12,12 +12,12 @@ import java.awt.Point;
  */
 public class Game {
 
-    private static final double RESISTANCE_COEFFICIENT = 0.996;
+    public static final double ROLLING_RESISTANCE_COEFF = 0.995;
+    public static final double FORCE_SCALE_COEFF = 0.05;
     private static final double MAX_VELOCITY = 100;
     private Ball ball;
     private LevelArea levelArea;
     private boolean gameIsOver = false;
-    private int timeout = 0;
 
     /**
      * Constructor including a couple of walls.
@@ -64,7 +64,7 @@ public class Game {
         if (velocity > MAX_VELOCITY) {
             velocity = MAX_VELOCITY;
         }
-        ball.setVelocity(velocity / 10);
+        ball.setVelocity(FORCE_SCALE_COEFF * velocity);
         ball.setAngle(angle + 180);
     }
 
@@ -80,7 +80,7 @@ public class Game {
             y = ball.getY() + dy;
 
             // simulate rolling resistance (=slow ball down)
-            ball.setVelocity(ball.getVelocity() * RESISTANCE_COEFFICIENT);
+            ball.setVelocity(ball.getVelocity() * ROLLING_RESISTANCE_COEFF);
             ball.setPosition(x, y);
 
             evaluateGameState();
@@ -112,7 +112,7 @@ public class Game {
 
         // hit an obstacle
         for (Obstacle o : levelArea.getObstacles()) {
-            if (o.overlaps(ball.getPosition(), ball.getRadius())) {
+            if (o.overlaps(ball.getPosition(), ball.getRadius() + 1)) {
                 double obstacleAngle = o.getAngle(ball.getAngle(), ball.getPosition(), ball.getRadius());
                 double newBallAngle = Geometry.calculateRicochetAngle(ball.getAngle(), obstacleAngle);
 

@@ -58,7 +58,9 @@ public class WallTest {
     @Test
     public void wallAngleCorrect() {
         wall = new Wall(new Point(0, 0), 174, 10, 100);
-        assertEquals(174, wall.getAngle(0, new Point(0, 0), 10), 0.01);
+        assertEquals(174, wall.getAngle(0, new Point(0, 0), 10));
+        wall = new Wall(new Point(0, 0), 23, 10, 100);
+        assertEquals(23, wall.getAngle());
     }
 
     @Test

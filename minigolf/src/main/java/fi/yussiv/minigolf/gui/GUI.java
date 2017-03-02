@@ -8,6 +8,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
+import javax.swing.JCheckBox;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.Timer;
@@ -21,6 +22,7 @@ public class GUI extends Timer implements ActionListener, Runnable {
     private JFrame frame;
     private Canvas canvas;
     private final Game game;
+    private boolean enforceOneHitAtATime = true;
 
     /**
      * The constructor.
@@ -69,9 +71,15 @@ public class GUI extends Timer implements ActionListener, Runnable {
         container.setLayout(new BoxLayout(container, BoxLayout.Y_AXIS));
 
         JPanel buttons = new JPanel();
-        JButton reset = new JButton("Reset");
+        JButton reset = new JButton("Reset Game");
         reset.addActionListener(new ButtonListener(this));
+        reset.setActionCommand("reset");
+        JCheckBox disableInput = new JCheckBox("Allow new hit before ball is stopped");
+        disableInput.setActionCommand("disable");
+        disableInput.addActionListener(new ButtonListener(this));
+        
         buttons.add(reset);
+        buttons.add(disableInput);
 
         canvas.addMouseMotionListener(new MinigolfMouseListener(this, canvas));
         canvas.addMouseListener(new MinigolfMouseListener(this, canvas));
@@ -81,12 +89,12 @@ public class GUI extends Timer implements ActionListener, Runnable {
     }
 
     /**
-     * A boolean to indicate if an animation is still in progress.
+     * A boolean to indicate if the GUI is accepting input.
      *
-     * @return true if still animating
+     * @return true if input not allowed
      */
-    public boolean isAnimating() {
-        return false; //game.getPlayer().getBall().isMoving();
+    public boolean inputNotAllowed() {
+        return enforceOneHitAtATime && game.getBall().isMoving();
     }
 
     /**
@@ -95,6 +103,10 @@ public class GUI extends Timer implements ActionListener, Runnable {
      */
     public boolean gameIsOver() {
         return game.gameIsOver();
+    }
+
+    public void setEnforceOneHitAtATime(boolean enforceOneHitAtATime) {
+        this.enforceOneHitAtATime = enforceOneHitAtATime;
     }
 
     /**

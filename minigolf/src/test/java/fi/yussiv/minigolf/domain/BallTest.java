@@ -1,5 +1,6 @@
 package fi.yussiv.minigolf.domain;
 
+import fi.yussiv.minigolf.Game;
 import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;
@@ -34,9 +35,9 @@ public class BallTest {
 
     @Test
     public void velocityCutoffWorks() {
-        ball.setVelocity(0.31);
+        ball.setVelocity(0.081);
         assertTrue(ball.isMoving());
-        ball.setVelocity(0.3);
+        ball.setVelocity(0.08);
         assertFalse(ball.isMoving());
     }
 

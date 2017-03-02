@@ -15,3 +15,4 @@
 | 23.2.2017 | 2h     | Dokumentointia |
 | 25.2.2017 | 2h     | Seinien piirtoon erillinen luokka |
 | 1.3.2017  | 5h     | Törmäyksentunnistus uusiksi |
+| 2.3.2017  | 3h     | Törmäyksentunnistuksen hienosäätöä, dokumentointia |

@@ -2,6 +2,7 @@ package fi.yussiv.minigolf.gui;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import javax.swing.JCheckBox;
 
 /**
  * A class to listen button actions (duh).
@@ -21,7 +22,19 @@ public class ButtonListener implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent ae) {
-        gui.reset();
+        switch (ae.getActionCommand()) {
+            case "reset":
+                gui.reset();
+                break;
+            case "disable":
+                JCheckBox box = (JCheckBox) ae.getSource();
+                if (box.isSelected()) {
+                    gui.setEnforceOneHitAtATime(false);
+                } else {
+                    gui.setEnforceOneHitAtATime(true);
+                }
+        }
+        
     }
 
 }

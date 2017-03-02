@@ -10,6 +10,10 @@ public class Wall implements Obstacle {
 
     private final Point start;
     private final Point end;
+    private final Point startLeft;
+    private final Point startRight;
+    private final Point endLeft;
+    private final Point endRight;
     private final int angle;
     private final int width;
     private final int length;
@@ -30,11 +34,16 @@ public class Wall implements Obstacle {
         this.length = length;
         this.end = calculateEnd();
         this.latestPerceivedAngle = angle;
+        this.startRight = Geometry.getOffsetPoint(start, angle - 90, width / 2);
+        this.startLeft = Geometry.getOffsetPoint(start, angle + 90, width / 2);
+        this.endRight = Geometry.getOffsetPoint(end, angle - 90, width / 2);
+        this.endLeft = Geometry.getOffsetPoint(end, angle + 90, width / 2);
     }
 
     @Override
     public boolean overlaps(Point point, int margin) {
-        return distanceToWallEdge(point) <= margin;
+        double distance = distanceToWallEdge(point);
+        return distance <= margin; // pieni hajurako
     }
 
     public Point getStart() {
@@ -102,8 +111,11 @@ public class Wall implements Obstacle {
             // the distance is valid only for the width of the wall
             if (w <= width / 2) {
                 return d;
+            } else {
+                // return distance to corner
+                return Math.min(startLeft.distance(point), startRight.distance(point));
             }
-        } else if (Math.abs(angleFromPointToEnd) <= 90) {
+        } else { // Math.abs(angleFromPointToEnd) <= 90
             // hit end
             latestPerceivedAngle = (int) Geometry.normalizeAngle(angle + 90);
             double d = Math.cos(Math.toRadians(Math.abs(angleFromPointToEnd))) * distanceToEnd;
@@ -111,9 +123,9 @@ public class Wall implements Obstacle {
 
             if (w <= width / 2) {
                 return d;
+            } else {
+                return Math.min(endLeft.distance(point), endRight.distance(point));
             }
         }
-        // infinity
-        return Double.MAX_VALUE;
     }
 }

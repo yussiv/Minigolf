@@ -16,7 +16,7 @@ public class Minigolf {
     public static void main(String[] args) {
         Game game = new Game();
         
-        GUI gui = new GUI(game, 10);
+        GUI gui = new GUI(game, 5);
         SwingUtilities.invokeLater(gui);
     }
 }

@@ -40,7 +40,7 @@ public class MinigolfMouseListener implements MouseListener, MouseMotionListener
      */
     @Override
     public void mousePressed(MouseEvent me) {
-        if (gui.isAnimating()) {
+        if (gui.inputNotAllowed()) {
             return;
         }
         this.start = me.getPoint();
@@ -56,7 +56,7 @@ public class MinigolfMouseListener implements MouseListener, MouseMotionListener
      */
     @Override
     public void mouseReleased(MouseEvent me) {
-        if (gui.isAnimating()) {
+        if (gui.inputNotAllowed()) {
             return;
         }
         end = me.getPoint();

@@ -1,5 +1,6 @@
 package fi.yussiv.minigolf.domain;
 
+import fi.yussiv.minigolf.Game;
 import fi.yussiv.minigolf.logic.Geometry;
 import java.awt.Point;
 
@@ -60,7 +61,7 @@ public class Ball {
      * @return boolean
      */
     public boolean isMoving() {
-        return Math.abs(velocity) > 0.3;
+        return Math.abs(velocity) > 0.08;
     }
 
     public double getVelocity() {
@@ -91,10 +92,5 @@ public class Ball {
 
     public boolean isVisible() {
         return isVisible;
-    }
-
-    @Override
-    public String toString() {
-        return String.format("(%.3f, %.3f) velocity:%.3f, angle:%.1f", position.x, position.y, velocity, angle);
     }
 }

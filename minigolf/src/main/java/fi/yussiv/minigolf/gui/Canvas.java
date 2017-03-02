@@ -88,10 +88,11 @@ public class Canvas extends JPanel {
 
         g.setColor(Color.WHITE);
 
-        g.setFont(new Font("Arial", Font.PLAIN, 10));
-        g.drawString("mouse:(" + mousePoint.x + "," + mousePoint.y + ")", 510, 20);
-        g.drawString("ball:(" + ballX + "," + ballY + ")", 510, 35);
-        g.drawString(String.format("angle: %.2f", ball.getAngle()), 510, 50);
+        // debug info
+//        g.setFont(new Font("Arial", Font.PLAIN, 10));
+//        g.drawString("mouse:(" + mousePoint.x + "," + mousePoint.y + ")", 510, 20);
+//        g.drawString("ball:(" + ballX + "," + ballY + ")", 510, 35);
+//        g.drawString(String.format("angle: %.2f", ball.getAngle()), 510, 50);
 
         // game is over
         if (!ball.isVisible()) {
